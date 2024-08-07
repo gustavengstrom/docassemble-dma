@@ -1,0 +1,285 @@
+metadata:
+  title: |
+    dma-general
+  short title: |
+    n/a
+  show login: False
+  description: |
+    DESCRIPTION 
+  revision_date: 2024-08-07
+---
+modules:
+  - .post
+---
+features:
+  #css: sds.css # local CSS pointer ## goood tutorial for styling da: https://www.youtube.com/watch?v=6a3sER5MOK8
+  popover trigger: hover # how to display interactive content/hyperlinks
+  bootstrap theme: https://bootswatch.com/5/flatly/bootstrap.min.css
+  navigation: True
+  progress bar: True
+  show progress bar percentage: True
+  progressive: True
+  inverse navbar: False
+  hide navbar: True
+  question help button: True
+---
+field: intro_screen
+question: |
+  Double Materiality Assessment (DMA): Understanding the context
+subquestion: |
+  
+
+  To get started, press **Continue**.
+help:
+  label: Help?
+  heading: <BR><h6>Explanation</h6>
+  content: |
+    In this step, the undertaking develops an overview of its activities and business relationships, the context in which these take place and an understanding of its key affected stakeholders. This overview provides key inputs to identify the undertaking’s IROs. EFRAG IG 1&#58; Materiality assessment implementation guidance
+---
+mandatory: True
+code: |
+  multi_user = True
+  guest_member = None
+
+  # Get query params
+  board_id = url_args.get("board_id", "")
+  survey_id = url_args.get("survey_id", "")
+  django_hostname = os.environ.get("DJANGOHOSTNAME")
+  redirect_url = f"https://{django_hostname}/pages/{board_id}/{survey_id}/completed/?submitted=1"
+  login_url = f"https://{django_hostname}/accounts/login/"
+
+  if not user_logged_in():
+    token = url_args.get("token")
+    if token:
+      valid_token_status, valid_token_content = validate_token({"token": token})
+      log(valid_token_content)
+      if valid_token_status != 200:
+        invalid_token_screen
+      else:
+        session_info = json.loads(valid_token_content)
+        invite_email = session_info["invite_email"]
+        guest_member = session_info["boardmember_id"]
+        redirect_url = "https://www.beyondcsrd.se"
+    else:
+      require_login_screen
+
+  # Get more query params
+  organisation_id = url_args.get("organisation", "")
+  target_date = url_args.get("target_date")
+  external_organisation = url_args.get("external_organisation")
+  wekan_board = url_args.get("wekan_board")   # If wekan_board is set to None the list and swimlane info will be retrieved in the django backend
+  list_id = url_args.get("list_id", "optional_default_list_id")
+  swimlane_id = url_args.get("swimlane_id", "optional_default_swimlane_id")
+
+  # This is needed so we can filter active interviews on board_id
+  session_tags().add(board_id)
+  session_tags().add(board_id+"__"+survey_id)
+  session_tags().add(board_id+"__"+survey_id+"__"+organisation_id)
+
+  intro_screen
+  survey_data = []
+  survey_data.append({'name': 'Please disclose the activities of the undertaking.', 'value': DMA_General_1, 'id': 'DMA_General_1', 'answer_type': 'OPEN'})
+  survey_data.append({'name': 'Please disclose the business relationships of the undertaking.', 'value': DMA_General_2, 'id': 'DMA_General_2', 'answer_type': 'OPEN'})
+  survey_data.append({'name': 'Please disclose other contextual information in relation to the undertaking and sustainability issues.', 'value': DMA_General_3, 'id': 'DMA_General_3', 'answer_type': 'OPEN'})
+  survey_data.append({'name': 'Please share the understanding of the undertaking&#x27;s affected stakeholders.', 'value': DMA_General_4, 'id': 'DMA_General_4', 'answer_type': 'OPEN'})
+
+  card_title = 'dma-general'
+  card_description = ''
+  # Description section in the wekan board - need to be composed with markdown and be populated with datapartner_url from the intervfile_uploadsiew.
+  card_title = f"{card_title}"
+  card_description = f"{card_description}"
+  
+  email_title = 'dma-general'
+  #! Email compose for outgoing email.
+  email_body = f"Dear Partner, <br> <br> This is an automated message to confirm we have recieved the form - {email_title}.  <br> <br> Best regards <br> reportAll Team."
+  
+  email_data = [
+      {
+          "subject": email_title,
+          "body": email_body,
+          "recipients": [],
+          "from": "info@reportall.se",
+      }
+  ]
+
+  survey_data_ids = [d['id'] for d in survey_data]
+  survey_analytics = []
+  survey_analytics.append({"id": "sc_id","name": "score_coverage", "values": [dyn_id for dyn_id in survey_data_ids if any([sa_id in dyn_id for sa_id in ['DMA_General_1', 'DMA_General_2', 'DMA_General_3', 'DMA_General_4']])]})
+
+  survey_analytics_dq = []
+  for sa_idx, sa in enumerate(survey_analytics):
+    if not all([_id in survey_data_ids for _id in sa["values"]]):
+      sd_tag = []
+      sd_found = []
+      drop_sa_ids = []
+      for sd in survey_data:
+        for _id in sa["values"]:
+          if _id in sd["id"]:
+            sd_found.append(sd["id"])
+            tag = sd.get("tag")
+            if tag:
+              sd_tag.append(tag)
+            break
+        if len(sd_found) == len(sa["values"]) and len(sd_found)>0:   # Found all sa values in survey_data
+          dynamic_sa_dict = survey_analytics[sa_idx].copy()
+          dynamic_sa_dict["id"] = dynamic_sa_dict["id"] + f"__DQ{sd_found[0].split('__DQ')[-1]}"
+          dynamic_sa_dict["values"] = sd_found
+          dynamic_sa_dict["tag"] = next(iter(set(sd_tag)), None)
+          survey_analytics_dq.append(dynamic_sa_dict)
+          drop_sa_ids.append(sa_idx)
+          sd_found = []
+          sd_tag = []
+    else:
+      survey_analytics_dq.append(sa)
+
+
+  data = {
+      "board_id": board_id,
+      "survey_id": survey_id,
+      "organisation_id": organisation_id,
+      "external_organisation": external_organisation,
+      "survey_data": survey_data,
+      "survey_analytics": survey_analytics_dq,
+      "survey_uploads": [],
+      "max_responses": {"count": "1", "date_period": "year", "column_title": "Fiscal year"},
+      "target_date": target_date,
+      "wekan_board": wekan_board,
+      "list_id": list_id,
+      "swimlane_id": swimlane_id,
+      "wekan_data": {
+          "card_title": card_title,
+          "card_description": card_description
+  
+      },
+      # "email_data": email_data,
+      "aux_data": [
+      ],
+      "guest_member": guest_member,
+    }
+
+
+  # send data to django
+  final_screen
+  reponse_status_code, response_content = store_interview_results(data)
+  if reponse_status_code == 200:
+    define('error_screen', False) 
+    command('exit', url=redirect_url)
+  else:
+    error_screen
+--- 
+progress: 0
+question: |
+  Please disclose the activities of the undertaking. 
+help:
+  label: Help?
+  heading: <BR><h6>Explanation</h6>
+  content: |
+    Activities and business relationships related to ESRS 2 SBM-1 are approached as follows&#58;
+    (a)
+    the analysis of the undertaking’s business plan, strategy, financial statements and, when applicable, other information provided to investors;
+    (b)
+    the undertaking’s activities, products/services and the geographic locations of these activities; and
+    (c)
+    the mapping of the undertaking’s business relationships and upstream and/or downstream value chain, including type and nature of business relationships.
+back button: True
+fields:
+  - no label: DMA_General_1
+    datatype: text
+    required: false
+--- 
+progress: 25
+question: |
+  Please disclose the business relationships of the undertaking. 
+help:
+  label: Help?
+  heading: <BR><h6>Explanation</h6>
+  content: |
+    Activities and business relationships related to ESRS 2 SBM-1 are approached as follows&#58;
+    (a)
+    the analysis of the undertaking’s business plan, strategy, financial statements and, when applicable, other information provided to investors;
+    (b)
+    the undertaking’s activities, products/services and the geographic locations of these activities; and
+    (c)
+    the mapping of the undertaking’s business relationships and upstream and/or downstream value chain, including type and nature of business relationships.
+back button: True
+fields:
+  - no label: DMA_General_2
+    datatype: text
+    required: false
+--- 
+progress: 50
+question: |
+  Please disclose other contextual information in relation to the undertaking and sustainability issues. 
+help:
+  label: Help?
+  heading: <BR><h6>Explanation</h6>
+  content: |
+    There are other factors that can help identify particular sources of IROs, such as&#58;
+    (a)
+    the analysis of the undertaking’s relevant legal and regulatory landscape; and
+    (b)
+    the analysis of published documentation such as media reports, analysis of peers, existing sector-specific benchmarks, other publications on general sustainability trends and scientific articles.
+back button: True
+fields:
+  - no label: DMA_General_3
+    datatype: text
+    required: false
+--- 
+progress: 75
+question: |
+  Please share the understanding of the undertaking&#x27;s affected stakeholders. 
+help:
+  label: Help?
+  heading: <BR><h6>Explanation</h6>
+  content: |
+    This is aimed at understanding which stakeholders are or are likely to be affected by the undertaking’s own operations and upstream and downstream value chain (see chapter 3.5 Role and approach to stakeholders in the materiality assessment process). It also includes their views and interests (consistent with the disclosures per ESRS 2 SBM-2 Interests and views of stakeholders). Based on this, the undertaking can identify its key affected stakeholders. The following can be considered to aid such understanding&#58;
+    (a)
+    an analysis of the existing stakeholder engagement initiatives (such as by the communication, investor relations, business management, sales and procurement teams); and
+    (b)
+    a mapping of affected stakeholders across the undertaking’s activities and business relationships. Separate groups of affected stakeholders may be identified per activity, product or service and are to be prioritised for a particular sustainability matter (this mapping may be reviewed after Step B as necessary).
+back button: True
+fields:
+  - no label: DMA_General_4
+    datatype: text
+    required: false
+---
+#! Response report before submission
+progress: 100
+field: final_screen
+back button: True
+question: |
+  Congratulations!
+subquestion: |
+  All questions have been addressed. Press the submit button below to send in your answers.
+continue button label: Submit answers!
+
+---
+#! Response report before submission
+event: error_screen
+prevent going back: True
+question: |
+  Something went wrong when submitting your answers. 
+subquestion: |  
+  Please try again or contact <a href="mailto:info@beyondcsrd.se">info@beyondcsrd.se</a> for help.
+under: |
+  Details: ${ response_content.decode() }
+buttons:
+  Exit: exit
+
+---
+
+event: require_login_screen
+question: |
+  Oops! You have been logged out. Please login again.
+subquestion: |
+  ${ action_button_html(login_url, size='md', color='primary', label='Login', new_window=False) }
+
+---
+
+event: invalid_token_screen
+question: |
+  Your survey token is invalid. Please contact the administrator to request a new url. 
+subquestion: |
+  ${ action_button_html(login_url, size='md', color='primary', label='Login', new_window=False) }
+
+---

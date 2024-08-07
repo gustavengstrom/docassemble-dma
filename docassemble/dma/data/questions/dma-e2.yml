@@ -1,0 +1,281 @@
+metadata:
+  title: |
+    dma-e2
+  short title: |
+    n/a
+  show login: False
+  description: |
+    DESCRIPTION 
+  revision_date: 2024-08-07
+---
+modules:
+  - .post
+---
+features:
+  #css: sds.css # local CSS pointer ## goood tutorial for styling da: https://www.youtube.com/watch?v=6a3sER5MOK8
+  popover trigger: hover # how to display interactive content/hyperlinks
+  bootstrap theme: https://bootswatch.com/5/flatly/bootstrap.min.css
+  navigation: True
+  progress bar: True
+  show progress bar percentage: True
+  progressive: True
+  inverse navbar: False
+  hide navbar: True
+  question help button: True
+---
+field: intro_screen
+question: |
+  Double Materiality Assessment (DMA): Identification of the actual and potential impacts, risks and opporunities related to pollution (E2).
+subquestion: |
+  
+
+  To get started, press **Continue**.
+help:
+  label: Help?
+  heading: <BR><h6>Explanation</h6>
+  content: |
+    ESRS E2 1.
+    The objective of this Standard is to specify Disclosure Requirements which will enable users of the sustainability statement to understand&#58;
+    (a)
+    how the undertaking affects pollution of air, water and soil, in terms of material positive and negative actual or potential impacts;
+    (b)
+    any actions taken, and the result of such actions, to prevent or mitigate actual or potential negative impacts, and to address risks and opportunities;
+    (c)
+    the plans and capacity of the undertaking to adapt its strategy and business model in line with the transition to a sustainable economy and with the need to prevent, control
+    2
+    and eliminate pollution. This is to create a toxic
+    -free environment with zero pollution also in support of the EU Action Plan “Towards a Zero Pollution for Air, Water and Soil”;
+    (d)
+    the nature, type and extent of the undertaking’s material risks and opportunities related to the undertaking’s pollution-related impacts and dependencies, as well as the prevention, control, elimination or reduction of pollution, including where this results from the application of regulations, and how the undertaking manages this; and
+    (e)
+    the financial effects on the undertaking over the short-, medium- and long-term of material risks and opportunities arising from the undertaking’s pollution-related impacts and dependencies.
+---
+mandatory: True
+code: |
+  multi_user = True
+  guest_member = None
+
+  # Get query params
+  board_id = url_args.get("board_id", "")
+  survey_id = url_args.get("survey_id", "")
+  django_hostname = os.environ.get("DJANGOHOSTNAME")
+  redirect_url = f"https://{django_hostname}/pages/{board_id}/{survey_id}/completed/?submitted=1"
+  login_url = f"https://{django_hostname}/accounts/login/"
+
+  if not user_logged_in():
+    token = url_args.get("token")
+    if token:
+      valid_token_status, valid_token_content = validate_token({"token": token})
+      log(valid_token_content)
+      if valid_token_status != 200:
+        invalid_token_screen
+      else:
+        session_info = json.loads(valid_token_content)
+        invite_email = session_info["invite_email"]
+        guest_member = session_info["boardmember_id"]
+        redirect_url = "https://www.beyondcsrd.se"
+    else:
+      require_login_screen
+
+  # Get more query params
+  organisation_id = url_args.get("organisation", "")
+  target_date = url_args.get("target_date")
+  external_organisation = url_args.get("external_organisation")
+  wekan_board = url_args.get("wekan_board")   # If wekan_board is set to None the list and swimlane info will be retrieved in the django backend
+  list_id = url_args.get("list_id", "optional_default_list_id")
+  swimlane_id = url_args.get("swimlane_id", "optional_default_swimlane_id")
+
+  # This is needed so we can filter active interviews on board_id
+  session_tags().add(board_id)
+  session_tags().add(board_id+"__"+survey_id)
+  session_tags().add(board_id+"__"+survey_id+"__"+organisation_id)
+
+  intro_screen
+  survey_data = []
+  survey_data.append({'name': 'Please disclose any negative impacts of the undertaking relating to pollution.', 'value': DMA_E2_1, 'id': 'DMA_E2_1', 'answer_type': 'OPEN_LARGE'})
+  survey_data.append({'name': 'Please disclose any positive impacts of the undertaking relating to pollution.', 'value': DMA_E2_2, 'id': 'DMA_E2_2', 'answer_type': 'OPEN_LARGE'})
+  survey_data.append({'name': 'Please disclose risks of the undertaking relating to pollution.', 'value': DMA_E2_3, 'id': 'DMA_E2_3', 'answer_type': 'OPEN_LARGE'})
+  survey_data.append({'name': 'Please disclose opportunities of the undertaking relating to pollution.', 'value': DMA_E2_4, 'id': 'DMA_E2_4', 'answer_type': 'OPEN_LARGE'})
+  survey_data.append({'name': 'Please share the undertaking&#x27;s additional impacts, risks, and opportunities relating to pollution.', 'value': DMA_E2_5, 'id': 'DMA_E2_5', 'answer_type': 'OPEN_LARGE'})
+
+  card_title = 'dma-e2'
+  card_description = ''
+  # Description section in the wekan board - need to be composed with markdown and be populated with datapartner_url from the intervfile_uploadsiew.
+  card_title = f"{card_title}"
+  card_description = f"{card_description}"
+  
+  email_title = 'dma-e2'
+  #! Email compose for outgoing email.
+  email_body = f"Dear Partner, <br> <br> This is an automated message to confirm we have recieved the form - {email_title}.  <br> <br> Best regards <br> reportAll Team."
+  
+  email_data = [
+      {
+          "subject": email_title,
+          "body": email_body,
+          "recipients": [],
+          "from": "info@reportall.se",
+      }
+  ]
+
+  survey_data_ids = [d['id'] for d in survey_data]
+  survey_analytics = []
+  survey_analytics.append({"id": "sc_id","name": "score_coverage", "values": [dyn_id for dyn_id in survey_data_ids if any([sa_id in dyn_id for sa_id in ['DMA_E2_1', 'DMA_E2_2', 'DMA_E2_3', 'DMA_E2_4']])]})
+  survey_analytics.append({"id": "DMA_E2_F1", "name": "The text describes the negative impacts relating to pollution.", "values": ["DMA_E2_1"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
+  survey_analytics.append({"id": "DMA_E2_F2", "name": "The text describes the positive impacts relating to pollution.", "values": ["DMA_E2_2"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
+  survey_analytics.append({"id": "DMA_E2_F3", "name": "The text describes the risks relating to pollution.", "values": ["DMA_E2_3", "DMA_E2_4"], "labels": ["", ""], "dtypes": ["OPEN_LARGE", "OPEN_LARGE"]})
+  survey_analytics.append({"id": "DMA_E2_F4", "name": "The text describes additional impacts relating to pollution.", "values": ["DMA_E2_5"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
+
+  survey_analytics_dq = []
+  for sa_idx, sa in enumerate(survey_analytics):
+    if not all([_id in survey_data_ids for _id in sa["values"]]):
+      sd_tag = []
+      sd_found = []
+      drop_sa_ids = []
+      for sd in survey_data:
+        for _id in sa["values"]:
+          if _id in sd["id"]:
+            sd_found.append(sd["id"])
+            tag = sd.get("tag")
+            if tag:
+              sd_tag.append(tag)
+            break
+        if len(sd_found) == len(sa["values"]) and len(sd_found)>0:   # Found all sa values in survey_data
+          dynamic_sa_dict = survey_analytics[sa_idx].copy()
+          dynamic_sa_dict["id"] = dynamic_sa_dict["id"] + f"__DQ{sd_found[0].split('__DQ')[-1]}"
+          dynamic_sa_dict["values"] = sd_found
+          dynamic_sa_dict["tag"] = next(iter(set(sd_tag)), None)
+          survey_analytics_dq.append(dynamic_sa_dict)
+          drop_sa_ids.append(sa_idx)
+          sd_found = []
+          sd_tag = []
+    else:
+      survey_analytics_dq.append(sa)
+
+
+  data = {
+      "board_id": board_id,
+      "survey_id": survey_id,
+      "organisation_id": organisation_id,
+      "external_organisation": external_organisation,
+      "survey_data": survey_data,
+      "survey_analytics": survey_analytics_dq,
+      "survey_uploads": [],
+      "max_responses": {"count": "1", "date_period": "year", "column_title": "Fiscal year"},
+      "target_date": target_date,
+      "wekan_board": wekan_board,
+      "list_id": list_id,
+      "swimlane_id": swimlane_id,
+      "wekan_data": {
+          "card_title": card_title,
+          "card_description": card_description
+  
+      },
+      # "email_data": email_data,
+      "aux_data": [
+      ],
+      "guest_member": guest_member,
+    }
+
+
+  # send data to django
+  final_screen
+  reponse_status_code, response_content = store_interview_results(data)
+  if reponse_status_code == 200:
+    define('error_screen', False) 
+    command('exit', url=redirect_url)
+  else:
+    error_screen
+--- 
+progress: 0
+question: |
+  Please disclose any negative impacts of the undertaking relating to pollution. 
+help:
+  label: Help?
+  heading: <BR><h6>Explanation</h6>
+  content: |
+    ESRS E2 3-6 + Glossary Pollution is the direct or indirect introduction, as a result of human activity, of pollutants into air, water or soil which may be harmful to human health and/or the environment, which may result in damage to material property, or which may impair or interfere with amenities and other legitimate uses of the environment. Pollution includes the sub-topics&#58; pollution of air, pollution of water, pollution of soil, pollution of living organisms and food resources, substances of concern, substances of very high concern, and microplastics.  “Pollution of air” refers to the undertaking’s emissions into air (both indoor and outdoor), and prevention, control and reduction of such emissions.
+    “Pollution of water” refers to the undertaking’s emissions to water, and prevention, control and reduction of such emissions.
+    “Pollution of soil” refers to the undertaking’s emissions into soil and the prevention, control and reduction of such emissions. The introduction into soil - independent of whether that introduction occurs at the production site of an undertaking or outside or through the use of the undertaking’s products and/or services - as a result of human activity, of substances, vibrations, heat or noise which may be harmful to human health or the environment, result in damage to material property, or impair or interfere with amenities and other legitimate uses of the environment. Soil pollutants include inorganic pollutants, persistent organic pollutants (POPs), pesticides, nitrogen and phosphorus compounds, etc. 
+    With regard to “substances of concern”, this standard covers the undertaking’s production, use and/or distribution and commercialisation of substances of concern, including substances of very high concern. Disclosure Requirements on substances of concern aim at providing users with an understanding of actual or potential impacts related to such substances, also taking account of possible restrictions on their use and/or distribution and commercialisation.
+back button: True
+fields:
+  - no label: DMA_E2_1
+    datatype: area
+    required: false
+--- 
+progress: 20
+question: |
+  Please disclose any positive impacts of the undertaking relating to pollution. 
+back button: True
+fields:
+  - no label: DMA_E2_2
+    datatype: area
+    required: false
+--- 
+progress: 40
+question: |
+  Please disclose risks of the undertaking relating to pollution. 
+back button: True
+fields:
+  - no label: DMA_E2_3
+    datatype: area
+    required: false
+--- 
+progress: 60
+question: |
+  Please disclose opportunities of the undertaking relating to pollution. 
+back button: True
+fields:
+  - no label: DMA_E2_4
+    datatype: area
+    required: false
+--- 
+progress: 80
+question: |
+  Please share the undertaking&#x27;s additional impacts, risks, and opportunities relating to pollution. 
+back button: True
+fields:
+  - no label: DMA_E2_5
+    datatype: area
+    required: false
+---
+#! Response report before submission
+progress: 100
+field: final_screen
+back button: True
+question: |
+  Congratulations!
+subquestion: |
+  All questions have been addressed. Press the submit button below to send in your answers.
+continue button label: Submit answers!
+
+---
+#! Response report before submission
+event: error_screen
+prevent going back: True
+question: |
+  Something went wrong when submitting your answers. 
+subquestion: |  
+  Please try again or contact <a href="mailto:info@beyondcsrd.se">info@beyondcsrd.se</a> for help.
+under: |
+  Details: ${ response_content.decode() }
+buttons:
+  Exit: exit
+
+---
+
+event: require_login_screen
+question: |
+  Oops! You have been logged out. Please login again.
+subquestion: |
+  ${ action_button_html(login_url, size='md', color='primary', label='Login', new_window=False) }
+
+---
+
+event: invalid_token_screen
+question: |
+  Your survey token is invalid. Please contact the administrator to request a new url. 
+subquestion: |
+  ${ action_button_html(login_url, size='md', color='primary', label='Login', new_window=False) }
+
+---

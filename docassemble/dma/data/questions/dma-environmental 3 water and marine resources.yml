@@ -1,0 +1,513 @@
+metadata:
+  title: |
+    dma-environmental 3 water and marine resources
+  short title: |
+    n/a
+  show login: False
+  description: |
+    DESCRIPTION 
+  revision_date: 2024-08-07
+---
+modules:
+  - .post
+---
+features:
+  #css: sds.css # local CSS pointer ## goood tutorial for styling da: https://www.youtube.com/watch?v=6a3sER5MOK8
+  popover trigger: hover # how to display interactive content/hyperlinks
+  bootstrap theme: https://bootswatch.com/5/flatly/bootstrap.min.css
+  navigation: True
+  progress bar: True
+  show progress bar percentage: True
+  progressive: True
+  inverse navbar: False
+  hide navbar: True
+  question help button: True
+---
+field: intro_screen
+question: |
+  
+subquestion: |
+  
+
+  To get started, press **Continue**.
+---
+mandatory: True
+code: |
+  multi_user = True
+  guest_member = None
+
+  # Get query params
+  board_id = url_args.get("board_id", "")
+  survey_id = url_args.get("survey_id", "")
+  django_hostname = os.environ.get("DJANGOHOSTNAME")
+  redirect_url = f"https://{django_hostname}/pages/{board_id}/{survey_id}/completed/?submitted=1"
+  login_url = f"https://{django_hostname}/accounts/login/"
+
+  if not user_logged_in():
+    token = url_args.get("token")
+    if token:
+      valid_token_status, valid_token_content = validate_token({"token": token})
+      log(valid_token_content)
+      if valid_token_status != 200:
+        invalid_token_screen
+      else:
+        session_info = json.loads(valid_token_content)
+        invite_email = session_info["invite_email"]
+        guest_member = session_info["boardmember_id"]
+        redirect_url = "https://www.beyondcsrd.se"
+    else:
+      require_login_screen
+
+  # Get more query params
+  organisation_id = url_args.get("organisation", "")
+  target_date = url_args.get("target_date")
+  external_organisation = url_args.get("external_organisation")
+  wekan_board = url_args.get("wekan_board")   # If wekan_board is set to None the list and swimlane info will be retrieved in the django backend
+  list_id = url_args.get("list_id", "optional_default_list_id")
+  swimlane_id = url_args.get("swimlane_id", "optional_default_swimlane_id")
+
+  # This is needed so we can filter active interviews on board_id
+  session_tags().add(board_id)
+  session_tags().add(board_id+"__"+survey_id)
+  session_tags().add(board_id+"__"+survey_id+"__"+organisation_id)
+
+  intro_screen
+  survey_data = []
+  survey_data.append({'name': 'Has the undertaking identified negative impacts on water and marine resources?', 'value': DMA_Environmental_3_Water_and_marine_resources_1, 'id': 'DMA_Environmental_3_Water_and_marine_resources_1', 'answer_type': 'YES/NO/PARTLY', 'dynamic_header':'Please elaborate on the questions below for identified negative impacts on water and marine resources.', 'dynamic_condition_criteria': 'YES/PARTLY'})
+  if DMA_Environmental_3_Water_and_marine_resources_1 in ['Yes', 'Partly']:
+    DMA_Environmental_3_Water_and_marine_resources_2.gather()
+  else:
+    EmptyPlaceHolderThing.name.text = ''
+    DMA_Environmental_3_Water_and_marine_resources_2.append(EmptyPlaceHolderThing)
+    DMA_Environmental_3_Water_and_marine_resources_2.there_is_another = False
+    DMA_Environmental_3_Water_and_marine_resources_2.gathered = True
+  for index, indicator in enumerate(DMA_Environmental_3_Water_and_marine_resources_2):
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_3'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_3 = '_n/a_'
+    survey_data.append({'name': 'Please provide a short description of the negative impact on water and marine resources..', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_3, 'id': f'DMA_Environmental_3_Water_and_marine_resources_3__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_1'})
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_4'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_4 = '_n/a_'
+    survey_data.append({'name': 'Please share the scale of the impact on water and marine resources..', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_4, 'id': f'DMA_Environmental_3_Water_and_marine_resources_4__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_1'})
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_5'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_5 = '_n/a_'
+    survey_data.append({'name': 'Please share the scope of the impact on water and marine resources..', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_5, 'id': f'DMA_Environmental_3_Water_and_marine_resources_5__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_1'})
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_6'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_6 = '_n/a_'
+    survey_data.append({'name': 'Please share the irremediability of the impact on water and marine resources..', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_6, 'id': f'DMA_Environmental_3_Water_and_marine_resources_6__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_1'})
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_7'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_7 = '_n/a_'
+    survey_data.append({'name': 'Please share the likelihood of the impact on water and marine resources..', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_7, 'id': f'DMA_Environmental_3_Water_and_marine_resources_7__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_1'})
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_8'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_8 = '_n/a_'
+    survey_data.append({'name': 'Please share the time horizon of the impact on water and marine resources..', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_8, 'id': f'DMA_Environmental_3_Water_and_marine_resources_8__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'Short-term/Medium-term/Long-term', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_1'})
+  if DMA_Environmental_3_Water_and_marine_resources_1 not in ['Yes', 'Partly']:
+    DMA_Environmental_3_Water_and_marine_resources_2.clear()
+  survey_data.append({'name': 'Has the undertaking identified positive impacts concerning water and marine resources?', 'value': DMA_Environmental_3_Water_and_marine_resources_9, 'id': 'DMA_Environmental_3_Water_and_marine_resources_9', 'answer_type': 'YES/NO/PARTLY', 'dynamic_header':'Please elaborate on the questions below for an identified positive impact on water and marine resources.', 'dynamic_condition_criteria': 'YES/PARTLY'})
+  if DMA_Environmental_3_Water_and_marine_resources_9 in ['Yes', 'Partly']:
+    DMA_Environmental_3_Water_and_marine_resources_10.gather()
+  else:
+    EmptyPlaceHolderThing.name.text = ''
+    DMA_Environmental_3_Water_and_marine_resources_10.append(EmptyPlaceHolderThing)
+    DMA_Environmental_3_Water_and_marine_resources_10.there_is_another = False
+    DMA_Environmental_3_Water_and_marine_resources_10.gathered = True
+  for index, indicator in enumerate(DMA_Environmental_3_Water_and_marine_resources_10):
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_11'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_11 = '_n/a_'
+    survey_data.append({'name': 'Please provide a short description of the positive impact on water and marine resources..', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_11, 'id': f'DMA_Environmental_3_Water_and_marine_resources_11__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_9'})
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_12'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_12 = '_n/a_'
+    survey_data.append({'name': 'Please share the scale of the impact on water and marine resources..', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_12, 'id': f'DMA_Environmental_3_Water_and_marine_resources_12__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_9'})
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_13'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_13 = '_n/a_'
+    survey_data.append({'name': 'Please share the scope of the impact on water and marine resources..', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_13, 'id': f'DMA_Environmental_3_Water_and_marine_resources_13__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_9'})
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_14'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_14 = '_n/a_'
+    survey_data.append({'name': 'Please share the likelihood of the impact on water and marine resources..', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_14, 'id': f'DMA_Environmental_3_Water_and_marine_resources_14__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_9'})
+  if DMA_Environmental_3_Water_and_marine_resources_9 not in ['Yes', 'Partly']:
+    DMA_Environmental_3_Water_and_marine_resources_10.clear()
+  survey_data.append({'name': 'Has the undertaking identified risks concerning water and marine resources?', 'value': DMA_Environmental_3_Water_and_marine_resources_15, 'id': 'DMA_Environmental_3_Water_and_marine_resources_15', 'answer_type': 'YES/NO/PARTLY', 'dynamic_header':'Please elaborate on the questions below for an identified risk concerning water and marine resources.', 'dynamic_condition_criteria': 'YES/PARTLY'})
+  if DMA_Environmental_3_Water_and_marine_resources_15 in ['Yes', 'Partly']:
+    DMA_Environmental_3_Water_and_marine_resources_16.gather()
+  else:
+    EmptyPlaceHolderThing.name.text = ''
+    DMA_Environmental_3_Water_and_marine_resources_16.append(EmptyPlaceHolderThing)
+    DMA_Environmental_3_Water_and_marine_resources_16.there_is_another = False
+    DMA_Environmental_3_Water_and_marine_resources_16.gathered = True
+  for index, indicator in enumerate(DMA_Environmental_3_Water_and_marine_resources_16):
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_17'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_17 = '_n/a_'
+    survey_data.append({'name': 'Please provide a short description of the risk.', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_17, 'id': f'DMA_Environmental_3_Water_and_marine_resources_17__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_15'})
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_18'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_18 = '_n/a_'
+    survey_data.append({'name': 'Please share the likelihood of occurrence for the risk.', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_18, 'id': f'DMA_Environmental_3_Water_and_marine_resources_18__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_15'})
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_19'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_19 = '_n/a_'
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the short term.', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_19, 'id': f'DMA_Environmental_3_Water_and_marine_resources_19__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_15'})
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_20'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_20 = '_n/a_'
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the medium term.', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_20, 'id': f'DMA_Environmental_3_Water_and_marine_resources_20__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_15'})
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_21'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_21 = '_n/a_'
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the long term.', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_21, 'id': f'DMA_Environmental_3_Water_and_marine_resources_21__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_15'})
+  if DMA_Environmental_3_Water_and_marine_resources_15 not in ['Yes', 'Partly']:
+    DMA_Environmental_3_Water_and_marine_resources_16.clear()
+  survey_data.append({'name': 'Has the undertaking identified opportunities concerning water and marine resources?', 'value': DMA_Environmental_3_Water_and_marine_resources_22, 'id': 'DMA_Environmental_3_Water_and_marine_resources_22', 'answer_type': 'YES/NO/PARTLY', 'dynamic_header':'Please elaborate on the questions below for an identified opportunity concerning water and marine resources.', 'dynamic_condition_criteria': 'YES/PARTLY'})
+  if DMA_Environmental_3_Water_and_marine_resources_22 in ['Yes', 'Partly']:
+    DMA_Environmental_3_Water_and_marine_resources_23.gather()
+  else:
+    EmptyPlaceHolderThing.name.text = ''
+    DMA_Environmental_3_Water_and_marine_resources_23.append(EmptyPlaceHolderThing)
+    DMA_Environmental_3_Water_and_marine_resources_23.there_is_another = False
+    DMA_Environmental_3_Water_and_marine_resources_23.gathered = True
+  for index, indicator in enumerate(DMA_Environmental_3_Water_and_marine_resources_23):
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_24'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_24 = '_n/a_'
+    survey_data.append({'name': 'Please provide a short description of the opportunity.', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_24, 'id': f'DMA_Environmental_3_Water_and_marine_resources_24__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_22'})
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_25'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_25 = '_n/a_'
+    survey_data.append({'name': 'Please share the likelihood of occurrence for the opportunity.', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_25, 'id': f'DMA_Environmental_3_Water_and_marine_resources_25__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_22'})
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_26'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_26 = '_n/a_'
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the short term.', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_26, 'id': f'DMA_Environmental_3_Water_and_marine_resources_26__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_22'})
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_27'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_27 = '_n/a_'
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the medium term.', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_27, 'id': f'DMA_Environmental_3_Water_and_marine_resources_27__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_22'})
+    if not indicator.attribute_defined('DMA_Environmental_3_Water_and_marine_resources_28'):
+      indicator.DMA_Environmental_3_Water_and_marine_resources_28 = '_n/a_'
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the long term.', 'value': indicator.DMA_Environmental_3_Water_and_marine_resources_28, 'id': f'DMA_Environmental_3_Water_and_marine_resources_28__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_3_Water_and_marine_resources_22'})
+  if DMA_Environmental_3_Water_and_marine_resources_22 not in ['Yes', 'Partly']:
+    DMA_Environmental_3_Water_and_marine_resources_23.clear()
+
+  card_title = 'dma-environmental 3 water and marine resources'
+  card_description = ''
+  # Description section in the wekan board - need to be composed with markdown and be populated with datapartner_url from the intervfile_uploadsiew.
+  card_title = f"{card_title}"
+  card_description = f"{card_description}"
+  
+  email_title = 'dma-environmental 3 water and marine resources'
+  #! Email compose for outgoing email.
+  email_body = f"Dear Partner, <br> <br> This is an automated message to confirm we have recieved the form - {email_title}.  <br> <br> Best regards <br> reportAll Team."
+  
+  email_data = [
+      {
+          "subject": email_title,
+          "body": email_body,
+          "recipients": [],
+          "from": "info@reportall.se",
+      }
+  ]
+
+  survey_data_ids = [d['id'] for d in survey_data]
+  survey_analytics = []
+  survey_analytics.append({"id": "sc_id","name": "score_coverage", "values": [dyn_id for dyn_id in survey_data_ids if any([sa_id in dyn_id for sa_id in ['DMA_Environmental_3_Water_and_marine_resources_1', 'DMA_Environmental_3_Water_and_marine_resources_2', 'DMA_Environmental_3_Water_and_marine_resources_3', 'DMA_Environmental_3_Water_and_marine_resources_4', 'DMA_Environmental_3_Water_and_marine_resources_5', 'DMA_Environmental_3_Water_and_marine_resources_6', 'DMA_Environmental_3_Water_and_marine_resources_7', 'DMA_Environmental_3_Water_and_marine_resources_8', 'DMA_Environmental_3_Water_and_marine_resources_9', 'DMA_Environmental_3_Water_and_marine_resources_10', 'DMA_Environmental_3_Water_and_marine_resources_11', 'DMA_Environmental_3_Water_and_marine_resources_12', 'DMA_Environmental_3_Water_and_marine_resources_13', 'DMA_Environmental_3_Water_and_marine_resources_14', 'DMA_Environmental_3_Water_and_marine_resources_15', 'DMA_Environmental_3_Water_and_marine_resources_16', 'DMA_Environmental_3_Water_and_marine_resources_17', 'DMA_Environmental_3_Water_and_marine_resources_18', 'DMA_Environmental_3_Water_and_marine_resources_19', 'DMA_Environmental_3_Water_and_marine_resources_20', 'DMA_Environmental_3_Water_and_marine_resources_21', 'DMA_Environmental_3_Water_and_marine_resources_22', 'DMA_Environmental_3_Water_and_marine_resources_23', 'DMA_Environmental_3_Water_and_marine_resources_24', 'DMA_Environmental_3_Water_and_marine_resources_25', 'DMA_Environmental_3_Water_and_marine_resources_26', 'DMA_Environmental_3_Water_and_marine_resources_27', 'DMA_Environmental_3_Water_and_marine_resources_28']])]})
+  survey_analytics.append({"id": "DMA_Environmental_3_Water_and_marine_resources_F1", "name": "Materialiy assessment for negative impacts", "values": ["DMA_Environmental_3_Water_and_marine_resources_4", "DMA_Environmental_3_Water_and_marine_resources_5", "DMA_Environmental_3_Water_and_marine_resources_6", "DMA_Environmental_3_Water_and_marine_resources_7", "DMA_Environmental_3_Water_and_marine_resources_8"], "labels": ["Scale", "Scope", "Irremediability", "Likelihood", "Time-horizon"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER", "OTHER"]})
+  survey_analytics.append({"id": "DMA_Environmental_3_Water_and_marine_resources_F2", "name": "Materialiy assessment for positive impacts", "values": ["DMA_Environmental_3_Water_and_marine_resources_12", "DMA_Environmental_3_Water_and_marine_resources_13", "DMA_Environmental_3_Water_and_marine_resources_14"], "labels": ["Scale", "Scope", "Likelihood"], "dtypes": ["OTHER", "OTHER", "OTHER"]})
+  survey_analytics.append({"id": "DMA_Environmental_3_Water_and_marine_resources_F3", "name": "Materialiy assessment for risks and opportunities (financial materility)", "values": ["DMA_Environmental_3_Water_and_marine_resources_18", "DMA_Environmental_3_Water_and_marine_resources_19", "DMA_Environmental_3_Water_and_marine_resources_20", "DMA_Environmental_3_Water_and_marine_resources_21"], "labels": ["Likelihood", "Short Term Magnitude", "Medium Term Magnitude", "Long Term Magnitude"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER"]})
+  survey_analytics.append({"id": "DMA_Environmental_3_Water_and_marine_resources_F4", "name": "Materialiy assessment for opportunities (financial materility)", "values": ["DMA_Environmental_3_Water_and_marine_resources_25", "DMA_Environmental_3_Water_and_marine_resources_26", "DMA_Environmental_3_Water_and_marine_resources_27", "DMA_Environmental_3_Water_and_marine_resources_28"], "labels": ["Likelihood", "Short Term Magnitude", "Medium Term Magnitude", "Long Term Magnitude"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER"]})
+
+  survey_analytics_dq = []
+  for sa_idx, sa in enumerate(survey_analytics):
+    if not all([_id in survey_data_ids for _id in sa["values"]]):
+      sd_tag = []
+      sd_found = []
+      drop_sa_ids = []
+      for sd in survey_data:
+        for _id in sa["values"]:
+          if _id in sd["id"]:
+            sd_found.append(sd["id"])
+            tag = sd.get("tag")
+            if tag:
+              sd_tag.append(tag)
+            break
+        if len(sd_found) == len(sa["values"]) and len(sd_found)>0:   # Found all sa values in survey_data
+          dynamic_sa_dict = survey_analytics[sa_idx].copy()
+          dynamic_sa_dict["id"] = dynamic_sa_dict["id"] + f"__DQ{sd_found[0].split('__DQ')[-1]}"
+          dynamic_sa_dict["values"] = sd_found
+          dynamic_sa_dict["tag"] = next(iter(set(sd_tag)), None)
+          survey_analytics_dq.append(dynamic_sa_dict)
+          drop_sa_ids.append(sa_idx)
+          sd_found = []
+          sd_tag = []
+    else:
+      survey_analytics_dq.append(sa)
+
+
+  data = {
+      "board_id": board_id,
+      "survey_id": survey_id,
+      "organisation_id": organisation_id,
+      "external_organisation": external_organisation,
+      "survey_data": survey_data,
+      "survey_analytics": survey_analytics_dq,
+      "survey_uploads": [],
+      "max_responses": {"count": "1", "date_period": "year", "column_title": "Fiscal year"},
+      "target_date": target_date,
+      "wekan_board": wekan_board,
+      "list_id": list_id,
+      "swimlane_id": swimlane_id,
+      "wekan_data": {
+          "card_title": card_title,
+          "card_description": card_description
+  
+      },
+      # "email_data": email_data,
+      "aux_data": [
+      ],
+      "guest_member": guest_member,
+    }
+
+
+  # send data to django
+  final_screen
+  reponse_status_code, response_content = store_interview_results(data)
+  if reponse_status_code == 200:
+    define('error_screen', False) 
+    command('exit', url=redirect_url)
+  else:
+    error_screen
+--- 
+progress: 0
+question: |
+  Has the undertaking identified negative impacts on water and marine resources? 
+help:
+  label: Help?
+  heading: <BR><h6>Explanation</h6>
+  content: |
+    Environment includes climate change, pollution, water and marine resource, biodiversity and ecosystems and circular economy.
+back button: True
+fields:
+  - no label: DMA_Environmental_3_Water_and_marine_resources_1
+    input type: radio
+    required: false
+    choices:
+      - Yes
+      - No
+      - Partly
+---
+objects:
+  - DMA_Environmental_3_Water_and_marine_resources_2: DAList.using(object_type=Thing, there_are_any=True)
+  - EmptyPlaceHolderThing: Thing
+---
+question: |
+  Would you like to add another?
+yesno: DMA_Environmental_3_Water_and_marine_resources_2.there_is_another
+back button: True
+---
+progress: 13
+question: |
+  Please elaborate on the questions below for identified negative impacts on water and marine resources.
+back button: True
+fields:
+  - Please provide a short description of the negative impact on water and marine resources..: DMA_Environmental_3_Water_and_marine_resources_2[i].DMA_Environmental_3_Water_and_marine_resources_3
+    datatype: text
+    required: false
+  - Please share the scale of the impact on water and marine resources..: DMA_Environmental_3_Water_and_marine_resources_2[i].DMA_Environmental_3_Water_and_marine_resources_4
+    input type: radio
+    choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+  - Please share the scope of the impact on water and marine resources..: DMA_Environmental_3_Water_and_marine_resources_2[i].DMA_Environmental_3_Water_and_marine_resources_5
+    input type: radio
+    choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+  - Please share the irremediability of the impact on water and marine resources..: DMA_Environmental_3_Water_and_marine_resources_2[i].DMA_Environmental_3_Water_and_marine_resources_6
+    input type: radio
+    choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+  - Please share the likelihood of the impact on water and marine resources..: DMA_Environmental_3_Water_and_marine_resources_2[i].DMA_Environmental_3_Water_and_marine_resources_7
+    input type: radio
+    choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+  - Please share the time horizon of the impact on water and marine resources..: DMA_Environmental_3_Water_and_marine_resources_2[i].DMA_Environmental_3_Water_and_marine_resources_8
+    input type: radio
+    choices: ['Short-Term', 'Medium-Term', 'Long-Term']
+    required: false
+--- 
+progress: 25
+question: |
+  Has the undertaking identified positive impacts concerning water and marine resources? 
+back button: True
+fields:
+  - no label: DMA_Environmental_3_Water_and_marine_resources_9
+    input type: radio
+    required: false
+    choices:
+      - Yes
+      - No
+      - Partly
+---
+objects:
+  - DMA_Environmental_3_Water_and_marine_resources_10: DAList.using(object_type=Thing, there_are_any=True)
+  - EmptyPlaceHolderThing: Thing
+---
+question: |
+  Would you like to add another?
+yesno: DMA_Environmental_3_Water_and_marine_resources_10.there_is_another
+back button: True
+---
+progress: 38
+question: |
+  Please elaborate on the questions below for an identified positive impact on water and marine resources.
+back button: True
+fields:
+  - Please provide a short description of the positive impact on water and marine resources..: DMA_Environmental_3_Water_and_marine_resources_10[i].DMA_Environmental_3_Water_and_marine_resources_11
+    datatype: text
+    required: false
+  - Please share the scale of the impact on water and marine resources..: DMA_Environmental_3_Water_and_marine_resources_10[i].DMA_Environmental_3_Water_and_marine_resources_12
+    input type: radio
+    choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+  - Please share the scope of the impact on water and marine resources..: DMA_Environmental_3_Water_and_marine_resources_10[i].DMA_Environmental_3_Water_and_marine_resources_13
+    input type: radio
+    choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+  - Please share the likelihood of the impact on water and marine resources..: DMA_Environmental_3_Water_and_marine_resources_10[i].DMA_Environmental_3_Water_and_marine_resources_14
+    input type: radio
+    choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+--- 
+progress: 50
+question: |
+  Has the undertaking identified risks concerning water and marine resources? 
+back button: True
+fields:
+  - no label: DMA_Environmental_3_Water_and_marine_resources_15
+    input type: radio
+    required: false
+    choices:
+      - Yes
+      - No
+      - Partly
+---
+objects:
+  - DMA_Environmental_3_Water_and_marine_resources_16: DAList.using(object_type=Thing, there_are_any=True)
+  - EmptyPlaceHolderThing: Thing
+---
+question: |
+  Would you like to add another?
+yesno: DMA_Environmental_3_Water_and_marine_resources_16.there_is_another
+back button: True
+---
+progress: 63
+question: |
+  Please elaborate on the questions below for an identified risk concerning water and marine resources.
+back button: True
+fields:
+  - Please provide a short description of the risk.: DMA_Environmental_3_Water_and_marine_resources_16[i].DMA_Environmental_3_Water_and_marine_resources_17
+    datatype: text
+    required: false
+  - Please share the likelihood of occurrence for the risk.: DMA_Environmental_3_Water_and_marine_resources_16[i].DMA_Environmental_3_Water_and_marine_resources_18
+    input type: radio
+    choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+  - Please share the potential magnitude of effects in the short term.: DMA_Environmental_3_Water_and_marine_resources_16[i].DMA_Environmental_3_Water_and_marine_resources_19
+    input type: radio
+    choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+  - Please share the potential magnitude of effects in the medium term.: DMA_Environmental_3_Water_and_marine_resources_16[i].DMA_Environmental_3_Water_and_marine_resources_20
+    input type: radio
+    choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+  - Please share the potential magnitude of effects in the long term.: DMA_Environmental_3_Water_and_marine_resources_16[i].DMA_Environmental_3_Water_and_marine_resources_21
+    input type: radio
+    choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+--- 
+progress: 75
+question: |
+  Has the undertaking identified opportunities concerning water and marine resources? 
+back button: True
+fields:
+  - no label: DMA_Environmental_3_Water_and_marine_resources_22
+    input type: radio
+    required: false
+    choices:
+      - Yes
+      - No
+      - Partly
+---
+objects:
+  - DMA_Environmental_3_Water_and_marine_resources_23: DAList.using(object_type=Thing, there_are_any=True)
+  - EmptyPlaceHolderThing: Thing
+---
+question: |
+  Would you like to add another?
+yesno: DMA_Environmental_3_Water_and_marine_resources_23.there_is_another
+back button: True
+---
+progress: 88
+question: |
+  Please elaborate on the questions below for an identified opportunity concerning water and marine resources.
+back button: True
+fields:
+  - Please provide a short description of the opportunity.: DMA_Environmental_3_Water_and_marine_resources_23[i].DMA_Environmental_3_Water_and_marine_resources_24
+    datatype: text
+    required: false
+  - Please share the likelihood of occurrence for the opportunity.: DMA_Environmental_3_Water_and_marine_resources_23[i].DMA_Environmental_3_Water_and_marine_resources_25
+    input type: radio
+    choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+  - Please share the potential magnitude of effects in the short term.: DMA_Environmental_3_Water_and_marine_resources_23[i].DMA_Environmental_3_Water_and_marine_resources_26
+    input type: radio
+    choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+  - Please share the potential magnitude of effects in the medium term.: DMA_Environmental_3_Water_and_marine_resources_23[i].DMA_Environmental_3_Water_and_marine_resources_27
+    input type: radio
+    choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+  - Please share the potential magnitude of effects in the long term.: DMA_Environmental_3_Water_and_marine_resources_23[i].DMA_Environmental_3_Water_and_marine_resources_28
+    input type: radio
+    choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+---
+code: |
+  DMA_Environmental_3_Water_and_marine_resources_2[i].name.text=DMA_Environmental_3_Water_and_marine_resources_2[i].DMA_Environmental_3_Water_and_marine_resources_3
+---
+code: |
+  DMA_Environmental_3_Water_and_marine_resources_10[i].name.text=DMA_Environmental_3_Water_and_marine_resources_10[i].DMA_Environmental_3_Water_and_marine_resources_11
+---
+code: |
+  DMA_Environmental_3_Water_and_marine_resources_16[i].name.text=DMA_Environmental_3_Water_and_marine_resources_16[i].DMA_Environmental_3_Water_and_marine_resources_17
+---
+code: |
+  DMA_Environmental_3_Water_and_marine_resources_23[i].name.text=DMA_Environmental_3_Water_and_marine_resources_23[i].DMA_Environmental_3_Water_and_marine_resources_24
+---
+#! Response report before submission
+progress: 100
+field: final_screen
+back button: True
+question: |
+  Congratulations!
+subquestion: |
+  All questions have been addressed. Press the submit button below to send in your answers.
+continue button label: Submit answers!
+
+---
+#! Response report before submission
+event: error_screen
+prevent going back: True
+question: |
+  Something went wrong when submitting your answers. 
+subquestion: |  
+  Please try again or contact <a href="mailto:info@beyondcsrd.se">info@beyondcsrd.se</a> for help.
+under: |
+  Details: ${ response_content.decode() }
+buttons:
+  Exit: exit
+
+---
+
+event: require_login_screen
+question: |
+  Oops! You have been logged out. Please login again.
+subquestion: |
+  ${ action_button_html(login_url, size='md', color='primary', label='Login', new_window=False) }
+
+---
+
+event: invalid_token_screen
+question: |
+  Your survey token is invalid. Please contact the administrator to request a new url. 
+subquestion: |
+  ${ action_button_html(login_url, size='md', color='primary', label='Login', new_window=False) }
+
+---
