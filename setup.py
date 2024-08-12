@@ -44,9 +44,9 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
     return out
 
 setup(name='docassemble.dma',
-      version='0.0.1',
+      version='0.0.2',
       description=('A docassemble extension.'),
-      long_description='# docassemble.dma\n\nA docassemble extension.\n\n## Author\n\nAdmin Reportall, info@reportall.se\n\n',
+      long_description='# docassemble.dma\r\n\r\nA docassemble extension.\r\n\r\n## Author\r\n\r\nAdmin Reportall, info@reportall.se\r\n\r\n',
       long_description_content_type='text/markdown',
       author='Admin Reportall',
       author_email='info@reportall.se',

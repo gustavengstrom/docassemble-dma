@@ -6,7 +6,7 @@ metadata:
   show login: False
   description: |
     DESCRIPTION 
-  revision_date: 2024-08-07
+  revision_date: 2024-08-12
 ---
 modules:
   - .post
@@ -84,34 +84,34 @@ code: |
   intro_screen
   survey_data = []
   survey_data.append({'name': 'Please describe how the undertaking determines whether an impact, risk, and/or opportunity is material?', 'value': DMA_Reporting_1, 'id': 'DMA_Reporting_1', 'answer_type': 'OPEN_LARGE'})
-  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for climate change (E1)?', 'value': DMA_Reporting_2, 'id': 'DMA_Reporting_2', 'answer_type': 'YES/NO/PARTLY'})
+  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for climate change (E1)?', 'value': DMA_Reporting_2, 'id': 'DMA_Reporting_2', 'answer_type': 'Yes/No/Partly'})
   if not defined('DMA_Reporting_3'):
     define('DMA_Reporting_3', '_n/a_')
-  survey_data.append({'name': 'Does the undertaking or group have 750 employees or less during the financial year?', 'value': DMA_Reporting_3, 'id': 'DMA_Reporting_3', 'answer_type': 'YES/NO', 'condition': 'DMA_Reporting_2', 'condition_criteria': 'YES/PARTLY'})
-  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for pollution (E2)?', 'value': DMA_Reporting_4, 'id': 'DMA_Reporting_4', 'answer_type': 'YES/NO/PARTLY'})
-  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for water and marine resources (E3)?', 'value': DMA_Reporting_5, 'id': 'DMA_Reporting_5', 'answer_type': 'YES/NO/PARTLY'})
-  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for biodiversity and ecosystems (E4)?', 'value': DMA_Reporting_6, 'id': 'DMA_Reporting_6', 'answer_type': 'YES/NO/PARTLY'})
-  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for circular economy (E5)?', 'value': DMA_Reporting_7, 'id': 'DMA_Reporting_7', 'answer_type': 'YES/NO/PARTLY'})
-  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for own workforce (S1)?', 'value': DMA_Reporting_8, 'id': 'DMA_Reporting_8', 'answer_type': 'YES/NO/PARTLY'})
+  survey_data.append({'name': 'Does the undertaking or group have 750 employees or less during the financial year?', 'value': DMA_Reporting_3, 'id': 'DMA_Reporting_3', 'answer_type': 'Yes/No', 'condition': 'DMA_Reporting_2', 'condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for pollution (E2)?', 'value': DMA_Reporting_4, 'id': 'DMA_Reporting_4', 'answer_type': 'Yes/No/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for water and marine resources (E3)?', 'value': DMA_Reporting_5, 'id': 'DMA_Reporting_5', 'answer_type': 'Yes/No/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for biodiversity and ecosystems (E4)?', 'value': DMA_Reporting_6, 'id': 'DMA_Reporting_6', 'answer_type': 'Yes/No/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for circular economy (E5)?', 'value': DMA_Reporting_7, 'id': 'DMA_Reporting_7', 'answer_type': 'Yes/No/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for own workforce (S1)?', 'value': DMA_Reporting_8, 'id': 'DMA_Reporting_8', 'answer_type': 'Yes/No/Partly'})
   if not defined('DMA_Reporting_9'):
     define('DMA_Reporting_9', '_n/a_')
-  survey_data.append({'name': 'Does the undertaking or group have 750 employees or less during the financial year?', 'value': DMA_Reporting_9, 'id': 'DMA_Reporting_9', 'answer_type': 'YES/NO', 'condition': 'DMA_Reporting_8', 'condition_criteria': 'YES/PARTLY'})
+  survey_data.append({'name': 'Does the undertaking or group have 750 employees or less during the financial year?', 'value': DMA_Reporting_9, 'id': 'DMA_Reporting_9', 'answer_type': 'Yes/No', 'condition': 'DMA_Reporting_8', 'condition_criteria': 'Yes/Partly'})
   if not defined('DMA_Reporting_10'):
     define('DMA_Reporting_10', '_n/a_')
-  survey_data.append({'name': 'Are the phasing-in exceptions applicable for the undertaking for the year of this reporting?', 'value': DMA_Reporting_10, 'id': 'DMA_Reporting_10', 'answer_type': 'YES/NO', 'condition': 'DMA_Reporting_9', 'condition_criteria': 'YES'})
+  survey_data.append({'name': 'Are the phasing-in exceptions applicable for the undertaking for the year of this reporting?', 'value': DMA_Reporting_10, 'id': 'DMA_Reporting_10', 'answer_type': 'Yes/No', 'condition': 'DMA_Reporting_9', 'condition_criteria': 'Yes'})
   if not defined('DMA_Reporting_11'):
     define('DMA_Reporting_11', '_n/a_')
-  survey_data.append({'name': 'Would the undertaking nevertheless want to disclose S1 in preparation for future reports?', 'value': DMA_Reporting_11, 'id': 'DMA_Reporting_11', 'answer_type': 'YES/NO', 'condition': 'DMA_Reporting_10', 'condition_criteria': 'NO'})
-  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for workers in the value chain (S2)?', 'value': DMA_Reporting_12, 'id': 'DMA_Reporting_12', 'answer_type': 'YES/NO/PARTLY'})
-  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for affected communities (S3)?', 'value': DMA_Reporting_13, 'id': 'DMA_Reporting_13', 'answer_type': 'YES/NO/PARTLY'})
-  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for consumers and end-users (S4)?', 'value': DMA_Reporting_14, 'id': 'DMA_Reporting_14', 'answer_type': 'YES/NO/PARTLY'})
+  survey_data.append({'name': 'Would the undertaking nevertheless want to disclose S1 in preparation for future reports?', 'value': DMA_Reporting_11, 'id': 'DMA_Reporting_11', 'answer_type': 'Yes/No', 'condition': 'DMA_Reporting_10', 'condition_criteria': 'No'})
+  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for workers in the value chain (S2)?', 'value': DMA_Reporting_12, 'id': 'DMA_Reporting_12', 'answer_type': 'Yes/No/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for affected communities (S3)?', 'value': DMA_Reporting_13, 'id': 'DMA_Reporting_13', 'answer_type': 'Yes/No/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for consumers and end-users (S4)?', 'value': DMA_Reporting_14, 'id': 'DMA_Reporting_14', 'answer_type': 'Yes/No/Partly'})
   if not defined('DMA_Reporting_15'):
     define('DMA_Reporting_15', '_n/a_')
-  survey_data.append({'name': 'Does the undertaking or group have 750 employees or less during the financial year?', 'value': DMA_Reporting_15, 'id': 'DMA_Reporting_15', 'answer_type': 'YES/NO', 'condition': 'DMA_Reporting_14', 'condition_criteria': 'YES/PARTLY'})
+  survey_data.append({'name': 'Does the undertaking or group have 750 employees or less during the financial year?', 'value': DMA_Reporting_15, 'id': 'DMA_Reporting_15', 'answer_type': 'Yes/No', 'condition': 'DMA_Reporting_14', 'condition_criteria': 'Yes/Partly'})
   if not defined('DMA_Reporting_16'):
     define('DMA_Reporting_16', '_n/a_')
-  survey_data.append({'name': 'Are the phasing-in exceptions applicable for the undertaking for the year of this reporting?', 'value': DMA_Reporting_16, 'id': 'DMA_Reporting_16', 'answer_type': 'YES/NO', 'condition': 'DMA_Reporting_15', 'condition_criteria': 'NO'})
-  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for business conduct (G1)?', 'value': DMA_Reporting_17, 'id': 'DMA_Reporting_17', 'answer_type': 'YES/NO/PARTLY'})
+  survey_data.append({'name': 'Are the phasing-in exceptions applicable for the undertaking for the year of this reporting?', 'value': DMA_Reporting_16, 'id': 'DMA_Reporting_16', 'answer_type': 'Yes/No', 'condition': 'DMA_Reporting_15', 'condition_criteria': 'No'})
+  survey_data.append({'name': 'Has the undertaking identified any material sustainability impacts, risks and opportunites for business conduct (G1)?', 'value': DMA_Reporting_17, 'id': 'DMA_Reporting_17', 'answer_type': 'Yes/No/Partly'})
 
   card_title = 'dma-reporting'
   card_description = ''

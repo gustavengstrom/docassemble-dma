@@ -6,7 +6,7 @@ metadata:
   show login: False
   description: |
     DESCRIPTION 
-  revision_date: 2024-08-07
+  revision_date: 2024-08-12
 ---
 modules:
   - .post
@@ -73,7 +73,7 @@ code: |
 
   intro_screen
   survey_data = []
-  survey_data.append({'name': 'Has the undertaking identified negative impacts on resource use and circular economy?', 'value': DMA_Environmental_5_Resource_use_and_circular_economy_1, 'id': 'DMA_Environmental_5_Resource_use_and_circular_economy_1', 'answer_type': 'YES/NO/PARTLY', 'dynamic_header':'Please elaborate on the questions below for identified negative impacts on resource use and circular economy.', 'dynamic_condition_criteria': 'YES/PARTLY'})
+  survey_data.append({'name': 'Has the undertaking identified negative impacts on resource use and circular economy?', 'value': DMA_Environmental_5_Resource_use_and_circular_economy_1, 'id': 'DMA_Environmental_5_Resource_use_and_circular_economy_1', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified negative impacts on resource use and circular economy.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Environmental_5_Resource_use_and_circular_economy_1 in ['Yes', 'Partly']:
     DMA_Environmental_5_Resource_use_and_circular_economy_2.gather()
   else:
@@ -87,22 +87,22 @@ code: |
     survey_data.append({'name': 'Please provide a short description of the negative impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_3, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_3__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_1'})
     if not indicator.attribute_defined('DMA_Environmental_5_Resource_use_and_circular_economy_4'):
       indicator.DMA_Environmental_5_Resource_use_and_circular_economy_4 = '_n/a_'
-    survey_data.append({'name': 'Please share the scale of the impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_4, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_4__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_1'})
+    survey_data.append({'name': 'Please share the scale of the impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_4, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_4__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_1'})
     if not indicator.attribute_defined('DMA_Environmental_5_Resource_use_and_circular_economy_5'):
       indicator.DMA_Environmental_5_Resource_use_and_circular_economy_5 = '_n/a_'
-    survey_data.append({'name': 'Please share the scope of the impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_5, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_5__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_1'})
+    survey_data.append({'name': 'Please share the scope of the impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_5, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_5__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_1'})
     if not indicator.attribute_defined('DMA_Environmental_5_Resource_use_and_circular_economy_6'):
       indicator.DMA_Environmental_5_Resource_use_and_circular_economy_6 = '_n/a_'
-    survey_data.append({'name': 'Please share the irremediability of the impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_6, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_6__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_1'})
+    survey_data.append({'name': 'Please share the irremediability of the impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_6, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_6__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_1'})
     if not indicator.attribute_defined('DMA_Environmental_5_Resource_use_and_circular_economy_7'):
       indicator.DMA_Environmental_5_Resource_use_and_circular_economy_7 = '_n/a_'
-    survey_data.append({'name': 'Please share the likelihood of the impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_7, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_7__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_1'})
+    survey_data.append({'name': 'Please share the likelihood of the impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_7, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_7__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_1'})
     if not indicator.attribute_defined('DMA_Environmental_5_Resource_use_and_circular_economy_8'):
       indicator.DMA_Environmental_5_Resource_use_and_circular_economy_8 = '_n/a_'
-    survey_data.append({'name': 'Please share the time horizon of the impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_8, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_8__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'Short-term/Medium-term/Long-term', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_1'})
+    survey_data.append({'name': 'Please share the time horizon of the impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_8, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_8__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'Short-Term/Medium-Term/Long-Term', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_1'})
   if DMA_Environmental_5_Resource_use_and_circular_economy_1 not in ['Yes', 'Partly']:
     DMA_Environmental_5_Resource_use_and_circular_economy_2.clear()
-  survey_data.append({'name': 'Has the undertaking identified positive impacts concerning resource use and circular economy?', 'value': DMA_Environmental_5_Resource_use_and_circular_economy_9, 'id': 'DMA_Environmental_5_Resource_use_and_circular_economy_9', 'answer_type': 'YES/NO/PARTLY', 'dynamic_header':'Please elaborate on the questions below for an identified positive impact on resource use and circular economy.', 'dynamic_condition_criteria': 'YES/PARTLY'})
+  survey_data.append({'name': 'Has the undertaking identified positive impacts concerning resource use and circular economy?', 'value': DMA_Environmental_5_Resource_use_and_circular_economy_9, 'id': 'DMA_Environmental_5_Resource_use_and_circular_economy_9', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified positive impact on resource use and circular economy.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Environmental_5_Resource_use_and_circular_economy_9 in ['Yes', 'Partly']:
     DMA_Environmental_5_Resource_use_and_circular_economy_10.gather()
   else:
@@ -116,16 +116,16 @@ code: |
     survey_data.append({'name': 'Please provide a short description of the positive impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_11, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_11__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_9'})
     if not indicator.attribute_defined('DMA_Environmental_5_Resource_use_and_circular_economy_12'):
       indicator.DMA_Environmental_5_Resource_use_and_circular_economy_12 = '_n/a_'
-    survey_data.append({'name': 'Please share the scale of the impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_12, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_12__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_9'})
+    survey_data.append({'name': 'Please share the scale of the impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_12, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_12__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_9'})
     if not indicator.attribute_defined('DMA_Environmental_5_Resource_use_and_circular_economy_13'):
       indicator.DMA_Environmental_5_Resource_use_and_circular_economy_13 = '_n/a_'
-    survey_data.append({'name': 'Please share the scope of the impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_13, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_13__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_9'})
+    survey_data.append({'name': 'Please share the scope of the impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_13, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_13__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_9'})
     if not indicator.attribute_defined('DMA_Environmental_5_Resource_use_and_circular_economy_14'):
       indicator.DMA_Environmental_5_Resource_use_and_circular_economy_14 = '_n/a_'
-    survey_data.append({'name': 'Please share the likelihood of the impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_14, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_14__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_9'})
+    survey_data.append({'name': 'Please share the likelihood of the impact on resource use and circular economy.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_14, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_14__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_9'})
   if DMA_Environmental_5_Resource_use_and_circular_economy_9 not in ['Yes', 'Partly']:
     DMA_Environmental_5_Resource_use_and_circular_economy_10.clear()
-  survey_data.append({'name': 'Has the undertaking identified risks concerning resource use and circular economy?', 'value': DMA_Environmental_5_Resource_use_and_circular_economy_15, 'id': 'DMA_Environmental_5_Resource_use_and_circular_economy_15', 'answer_type': 'YES/NO/PARTLY', 'dynamic_header':'Please elaborate on the questions below for an identified risk concerning resource use and circular economy.', 'dynamic_condition_criteria': 'YES/PARTLY'})
+  survey_data.append({'name': 'Has the undertaking identified risks concerning resource use and circular economy?', 'value': DMA_Environmental_5_Resource_use_and_circular_economy_15, 'id': 'DMA_Environmental_5_Resource_use_and_circular_economy_15', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk concerning resource use and circular economy.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Environmental_5_Resource_use_and_circular_economy_15 in ['Yes', 'Partly']:
     DMA_Environmental_5_Resource_use_and_circular_economy_16.gather()
   else:
@@ -139,19 +139,19 @@ code: |
     survey_data.append({'name': 'Please provide a short description of the risk.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_17, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_17__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_15'})
     if not indicator.attribute_defined('DMA_Environmental_5_Resource_use_and_circular_economy_18'):
       indicator.DMA_Environmental_5_Resource_use_and_circular_economy_18 = '_n/a_'
-    survey_data.append({'name': 'Please share the likelihood of occurrence for the risk.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_18, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_18__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_15'})
+    survey_data.append({'name': 'Please share the likelihood of occurrence for the risk.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_18, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_18__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_15'})
     if not indicator.attribute_defined('DMA_Environmental_5_Resource_use_and_circular_economy_19'):
       indicator.DMA_Environmental_5_Resource_use_and_circular_economy_19 = '_n/a_'
-    survey_data.append({'name': 'Please share the potential magnitude of effects in the short term.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_19, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_19__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_15'})
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the short term.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_19, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_19__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_15'})
     if not indicator.attribute_defined('DMA_Environmental_5_Resource_use_and_circular_economy_20'):
       indicator.DMA_Environmental_5_Resource_use_and_circular_economy_20 = '_n/a_'
-    survey_data.append({'name': 'Please share the potential magnitude of effects in the medium term.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_20, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_20__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_15'})
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the medium term.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_20, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_20__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_15'})
     if not indicator.attribute_defined('DMA_Environmental_5_Resource_use_and_circular_economy_21'):
       indicator.DMA_Environmental_5_Resource_use_and_circular_economy_21 = '_n/a_'
-    survey_data.append({'name': 'Please share the potential magnitude of effects in the long term.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_21, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_21__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_15'})
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the long term.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_21, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_21__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_15'})
   if DMA_Environmental_5_Resource_use_and_circular_economy_15 not in ['Yes', 'Partly']:
     DMA_Environmental_5_Resource_use_and_circular_economy_16.clear()
-  survey_data.append({'name': 'Has the undertaking identified opportunities concerning resource use and circular economy?', 'value': DMA_Environmental_5_Resource_use_and_circular_economy_22, 'id': 'DMA_Environmental_5_Resource_use_and_circular_economy_22', 'answer_type': 'YES/NO/PARTLY', 'dynamic_header':'Please elaborate on the questions below for an identified opportunity concerning resource use and circular economy.', 'dynamic_condition_criteria': 'YES/PARTLY'})
+  survey_data.append({'name': 'Has the undertaking identified opportunities concerning resource use and circular economy?', 'value': DMA_Environmental_5_Resource_use_and_circular_economy_22, 'id': 'DMA_Environmental_5_Resource_use_and_circular_economy_22', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified opportunity concerning resource use and circular economy.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Environmental_5_Resource_use_and_circular_economy_22 in ['Yes', 'Partly']:
     DMA_Environmental_5_Resource_use_and_circular_economy_23.gather()
   else:
@@ -165,16 +165,16 @@ code: |
     survey_data.append({'name': 'Please provide a short description of the opportunity.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_24, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_24__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_22'})
     if not indicator.attribute_defined('DMA_Environmental_5_Resource_use_and_circular_economy_25'):
       indicator.DMA_Environmental_5_Resource_use_and_circular_economy_25 = '_n/a_'
-    survey_data.append({'name': 'Please share the likelihood of occurrence for the opportunity.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_25, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_25__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_22'})
+    survey_data.append({'name': 'Please share the likelihood of occurrence for the opportunity.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_25, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_25__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_22'})
     if not indicator.attribute_defined('DMA_Environmental_5_Resource_use_and_circular_economy_26'):
       indicator.DMA_Environmental_5_Resource_use_and_circular_economy_26 = '_n/a_'
-    survey_data.append({'name': 'Please share the potential magnitude of effects in the short term.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_26, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_26__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_22'})
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the short term.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_26, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_26__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_22'})
     if not indicator.attribute_defined('DMA_Environmental_5_Resource_use_and_circular_economy_27'):
       indicator.DMA_Environmental_5_Resource_use_and_circular_economy_27 = '_n/a_'
-    survey_data.append({'name': 'Please share the potential magnitude of effects in the medium term.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_27, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_27__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_22'})
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the medium term.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_27, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_27__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_22'})
     if not indicator.attribute_defined('DMA_Environmental_5_Resource_use_and_circular_economy_28'):
       indicator.DMA_Environmental_5_Resource_use_and_circular_economy_28 = '_n/a_'
-    survey_data.append({'name': 'Please share the potential magnitude of effects in the long term.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_28, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_28__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_22'})
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the long term.', 'value': indicator.DMA_Environmental_5_Resource_use_and_circular_economy_28, 'id': f'DMA_Environmental_5_Resource_use_and_circular_economy_28__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Environmental_5_Resource_use_and_circular_economy_22'})
   if DMA_Environmental_5_Resource_use_and_circular_economy_22 not in ['Yes', 'Partly']:
     DMA_Environmental_5_Resource_use_and_circular_economy_23.clear()
 
