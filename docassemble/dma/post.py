@@ -1,7 +1,7 @@
 from docassemble.base.util import get_config
 from docassemble.base.util import log
 from docassemble.base.util import DAFile, DADateTime
-from docassemble.base.functions import interview_url, user_info
+from docassemble.base.functions import interview_url, user_info, get_uid
 from datetime import datetime
 import psycopg2
 import json
@@ -13,8 +13,11 @@ from urllib.parse import parse_qs
 
 
 def get_ticket_aux_data(ticket_id: str):
+    django_hostname = os.environ["DJANGOHOSTNAME"]
     try:
-        url = "http://django:8000/webhooks/get_ticket_aux_data/?id={}".format(ticket_id)
+        url = "https://{}/webhooks/get_ticket_aux_data/?id={}".format(
+            ticket_id, django_hostname
+        )
         response = requests.get(url)
         if response.status_code != 200:
             log(f"An error occured: {response.content}", "console")
@@ -29,14 +32,16 @@ def get_ticket_aux_data(ticket_id: str):
         return 400
 
 
-def validate_token(data):
-    parsed_url = urlparse(interview_url(style="short", local=True))
-    session_id = parse_qs(parsed_url.query)["session"][0]
-    data["session_id"] = session_id
+def validate_session(data):
+    # parsed_url = urlparse(interview_url(style="short", local=True))
+    # session_id = parse_qs(parsed_url.query)["session"][0]
+    django_hostname = os.environ["DJANGOHOSTNAME"]
+    data["session_id"] = get_uid()
     data["survey_url"] = interview_url(style="short", local=True).split("?")[0]
     try:
         json_data = json.dumps(data)
-        url = "http://django:8000/webhooks/validate-da-session-token/"
+        url = f"https://{django_hostname}/webhooks/validate-da-session/"
+        # "http://django:8000/webhooks/validate-da-session/"
         response = requests.post(
             url,
             data=json_data,
@@ -52,6 +57,7 @@ def validate_token(data):
 
 def store_interview_results(data):
     """Post interview to django backend."""
+    django_hostname = os.environ["DJANGOHOSTNAME"]
     respondent_user_info = user_info()
     for item in data["survey_data"]:
         if isinstance(item["value"], DADateTime):
@@ -66,7 +72,8 @@ def store_interview_results(data):
     data["received_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     try:
         json_data = json.dumps(data)
-        url = "http://django:8000/webhooks/docassemble_receiver/"
+        url = f"http://{django_hostname}/webhooks/docassemble_receiver/"
+        # "http://django:8000/webhooks/docassemble_receiver/"
         response = requests.post(
             url,
             data=json_data,

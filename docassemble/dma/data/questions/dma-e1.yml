@@ -2,11 +2,11 @@ metadata:
   title: |
     dma-e1
   short title: |
-    n/a
+    In this step, the undertaking identifies the actual and potential impacts, risks and opportunities (IROs) relating to climate change across its own operations and in its upstream and downstream value chain. The outcome will be a ‘long’ list of impacts, risks and opportunities for further assessment and analysis in subsequent steps. If unsure, leave blank.
   show login: False
   description: |
     DESCRIPTION 
-  revision_date: 2024-08-12
+  revision_date: 2024-09-03
 ---
 modules:
   - .post
@@ -27,7 +27,7 @@ field: intro_screen
 question: |
   Double Materiality Assessment (DMA): Identification of the actual and potential impacts, risks and opporunities related to climate change (E1).
 subquestion: |
-  
+  In this step, the undertaking identifies the actual and potential impacts, risks and opportunities (IROs) relating to climate change across its own operations and in its upstream and downstream value chain. The outcome will be a ‘long’ list of impacts, risks and opportunities for further assessment and analysis in subsequent steps. If unsure, leave blank.
 
   To get started, press **Continue**.
 help:
@@ -61,20 +61,16 @@ code: |
   redirect_url = f"https://{django_hostname}/pages/{board_id}/{survey_id}/completed/?submitted=1"
   login_url = f"https://{django_hostname}/accounts/login/"
 
-  if not user_logged_in():
-    token = url_args.get("token")
-    if token:
-      valid_token_status, valid_token_content = validate_token({"token": token})
-      log(valid_token_content)
-      if valid_token_status != 200:
-        invalid_token_screen
-      else:
-        session_info = json.loads(valid_token_content)
-        invite_email = session_info["invite_email"]
-        guest_member = session_info["boardmember_id"]
-        redirect_url = "https://www.beyondcsrd.se"
-    else:
-      require_login_screen
+  token = url_args.get("token")
+
+  validate_status, validate_content = validate_session({"token": token, "board_id": board_id, "survey_id": survey_id})
+  if validate_status != 200:
+     invalid_token_screen
+  else:
+    session_info = json.loads(validate_content)
+    guest_member = session_info.get("boardmember_id")
+    if guest_member:
+      redirect_url = "https://www.beyondcsrd.se"
 
   # Get more query params
   organisation_id = url_args.get("organisation", "")
@@ -129,14 +125,17 @@ code: |
   survey_analytics.append({"id": "sc_id","name": "score_coverage", "values": [dyn_id for dyn_id in survey_data_ids if any([sa_id in dyn_id for sa_id in ['DMA_E1_1', 'DMA_E1_2', 'DMA_E1_3', 'DMA_E1_4', 'DMA_E1_5', 'DMA_E1_6', 'DMA_E1_7', 'DMA_E1_8', 'DMA_E1_9', 'DMA_E1_10', 'DMA_E1_11', 'DMA_E1_12']])]})
   survey_analytics.append({"id": "DMA_E1_F1", "name": "Text describes negative impacts of the undertaking relating to climate change adaptation.", "values": ["DMA_E1_1"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
   survey_analytics.append({"id": "DMA_E1_F2", "name": "Text describes positive impacts of the undertaking relating to climate change adaptation.", "values": ["DMA_E1_2"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
-  survey_analytics.append({"id": "DMA_E1_F3", "name": "Text describes risks of the undertaking relating to climate change adaptation.", "values": ["DMA_E1_3", "DMA_E1_4"], "labels": ["", ""], "dtypes": ["OPEN_LARGE", "OPEN_LARGE"]})
-  survey_analytics.append({"id": "DMA_E1_F4", "name": "Text describes negative impacts of the undertaking relating to climate change mitigation.", "values": ["DMA_E1_5"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
-  survey_analytics.append({"id": "DMA_E1_F5", "name": "Text describes positive impacts of the undertaking relating to climate change mitigation.", "values": ["DMA_E1_6"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
-  survey_analytics.append({"id": "DMA_E1_F6", "name": "Text describes risks of the undertaking relating to climate change mitigation.", "values": ["DMA_E1_7", "DMA_E1_8"], "labels": ["", ""], "dtypes": ["OPEN_LARGE", "OPEN_LARGE"]})
-  survey_analytics.append({"id": "DMA_E1_F7", "name": "Text describes negative impacts of the undertaking relating to energy.", "values": ["DMA_E1_9"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
-  survey_analytics.append({"id": "DMA_E1_F8", "name": "Text describes positive impacts of the undertaking relating to energy.", "values": ["DMA_E1_10"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
-  survey_analytics.append({"id": "DMA_E1_F9", "name": "The text describes the risks relating to energy.", "values": ["DMA_E1_11", "DMA_E1_12"], "labels": ["", ""], "dtypes": ["OPEN_LARGE", "OPEN_LARGE"]})
-  survey_analytics.append({"id": "DMA_E1_F10", "name": "Text describes the undertaking's additional impacts, risks, and opportunities relating to climate change.", "values": ["DMA_E1_13"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
+  survey_analytics.append({"id": "DMA_E1_F3", "name": "Text describes risks of the undertaking relating to climate change adaptation.", "values": ["DMA_E1_3"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
+  survey_analytics.append({"id": "DMA_E1_F4", "name": "Text describes opportunities of the undertaking relating to climate change adaptation.", "values": ["DMA_E1_4"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
+  survey_analytics.append({"id": "DMA_E1_F5", "name": "Text describes negative impacts of the undertaking relating to climate change mitigation.", "values": ["DMA_E1_5"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
+  survey_analytics.append({"id": "DMA_E1_F6", "name": "Text describes positive impacts of the undertaking relating to climate change mitigation.", "values": ["DMA_E1_6"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
+  survey_analytics.append({"id": "DMA_E1_F7", "name": "Text describes risks of the undertaking relating to climate change mitigation.", "values": ["DMA_E1_7"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
+  survey_analytics.append({"id": "DMA_E1_F8", "name": "Text describes opportunities of the undertaking relating to climate change mitigation.", "values": ["DMA_E1_8"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
+  survey_analytics.append({"id": "DMA_E1_F9", "name": "Text describes negative impacts of the undertaking relating to energy.", "values": ["DMA_E1_9"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
+  survey_analytics.append({"id": "DMA_E1_F10", "name": "Text describes positive impacts of the undertaking relating to energy.", "values": ["DMA_E1_10"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
+  survey_analytics.append({"id": "DMA_E1_F11", "name": "The text describes the risks relating to energy.", "values": ["DMA_E1_11"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
+  survey_analytics.append({"id": "DMA_E1_F12", "name": "The text describes the opportunities relating to energy.", "values": ["DMA_E1_12"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
+  survey_analytics.append({"id": "DMA_E1_F13", "name": "Text describes the undertaking's additional impacts, risks, and opportunities relating to climate change.", "values": ["DMA_E1_13"], "labels": [""], "dtypes": ["OPEN_LARGE"]})
 
   survey_analytics_dq = []
   for sa_idx, sa in enumerate(survey_analytics):

@@ -2,11 +2,11 @@ metadata:
   title: |
     dma-social 4 consumer and end-users
   short title: |
-    n/a
+    In this step, the undertaking applies criteria for assessing impact and financial materiality in order to determine the material actual and potential impacts and the material risks and opportunities. This then forms the basis for determining material information based on the ESRS topical disclosure requirements. If unsure, leave blank.
   show login: False
   description: |
     DESCRIPTION 
-  revision_date: 2024-08-12
+  revision_date: 2024-09-03
 ---
 modules:
   - .post
@@ -27,7 +27,7 @@ field: intro_screen
 question: |
   Double Materiality Assessment (DMA): Assessment and determination of material, impacts, risks, and opportunities related to governance matters.
 subquestion: |
-  
+  In this step, the undertaking applies criteria for assessing impact and financial materiality in order to determine the material actual and potential impacts and the material risks and opportunities. This then forms the basis for determining material information based on the ESRS topical disclosure requirements. If unsure, leave blank.
 
   To get started, press **Continue**.
 help:
@@ -48,20 +48,16 @@ code: |
   redirect_url = f"https://{django_hostname}/pages/{board_id}/{survey_id}/completed/?submitted=1"
   login_url = f"https://{django_hostname}/accounts/login/"
 
-  if not user_logged_in():
-    token = url_args.get("token")
-    if token:
-      valid_token_status, valid_token_content = validate_token({"token": token})
-      log(valid_token_content)
-      if valid_token_status != 200:
-        invalid_token_screen
-      else:
-        session_info = json.loads(valid_token_content)
-        invite_email = session_info["invite_email"]
-        guest_member = session_info["boardmember_id"]
-        redirect_url = "https://www.beyondcsrd.se"
-    else:
-      require_login_screen
+  token = url_args.get("token")
+
+  validate_status, validate_content = validate_session({"token": token, "board_id": board_id, "survey_id": survey_id})
+  if validate_status != 200:
+     invalid_token_screen
+  else:
+    session_info = json.loads(validate_content)
+    guest_member = session_info.get("boardmember_id")
+    if guest_member:
+      redirect_url = "https://www.beyondcsrd.se"
 
   # Get more query params
   organisation_id = url_args.get("organisation", "")
@@ -78,7 +74,7 @@ code: |
 
   intro_screen
   survey_data = []
-  survey_data.append({'name': 'Has the undertaking identified negative impacts on consumers and end-users?', 'value': DMA_Social_4_Consumer_and_end_users_1, 'id': 'DMA_Social_4_Consumer_and_end_users_1', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified negative impacts on consumers and end-users.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified negative impacts on consumers and end-users?', 'value': DMA_Social_4_Consumer_and_end_users_1 if DMA_Social_4_Consumer_and_end_users_1!='None' else '_n/a_', 'id': 'DMA_Social_4_Consumer_and_end_users_1', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified negative impacts on consumers and end-users.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Social_4_Consumer_and_end_users_1 in ['Yes', 'Partly']:
     DMA_Social_4_Consumer_and_end_users_2.gather()
   else:
@@ -89,99 +85,111 @@ code: |
   for index, indicator in enumerate(DMA_Social_4_Consumer_and_end_users_2):
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_3'):
       indicator.DMA_Social_4_Consumer_and_end_users_3 = '_n/a_'
-    survey_data.append({'name': 'Please provide a short description of the negative impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_3, 'id': f'DMA_Social_4_Consumer_and_end_users_3__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
+    survey_data.append({'name': 'Please provide a short description of the negative impact on consumers and end-users.', 'value': DMA_Social_4_Consumer_and_end_users_1 if DMA_Social_4_Consumer_and_end_users_1!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_3__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_4'):
       indicator.DMA_Social_4_Consumer_and_end_users_4 = '_n/a_'
-    survey_data.append({'name': 'Please share the scale of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_4, 'id': f'DMA_Social_4_Consumer_and_end_users_4__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
+    survey_data.append({'name': 'Please share the scale of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_4 if indicator.DMA_Social_4_Consumer_and_end_users_4!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_4__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_5'):
       indicator.DMA_Social_4_Consumer_and_end_users_5 = '_n/a_'
-    survey_data.append({'name': 'Please share the scope of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_5, 'id': f'DMA_Social_4_Consumer_and_end_users_5__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
+    survey_data.append({'name': 'Please share the scope of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_5 if indicator.DMA_Social_4_Consumer_and_end_users_5!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_5__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_6'):
       indicator.DMA_Social_4_Consumer_and_end_users_6 = '_n/a_'
-    survey_data.append({'name': 'Please share the irremediability of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_6, 'id': f'DMA_Social_4_Consumer_and_end_users_6__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
+    survey_data.append({'name': 'Please share the irremediability of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_6 if indicator.DMA_Social_4_Consumer_and_end_users_6!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_6__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_7'):
       indicator.DMA_Social_4_Consumer_and_end_users_7 = '_n/a_'
-    survey_data.append({'name': 'Please share the likelihood of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_7, 'id': f'DMA_Social_4_Consumer_and_end_users_7__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
+    survey_data.append({'name': 'Please share the likelihood of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_7 if indicator.DMA_Social_4_Consumer_and_end_users_7!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_7__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_8'):
       indicator.DMA_Social_4_Consumer_and_end_users_8 = '_n/a_'
-    survey_data.append({'name': 'Please share the time horizon of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_8, 'id': f'DMA_Social_4_Consumer_and_end_users_8__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'Short-Term/Medium-Term/Long-Term', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
+    survey_data.append({'name': 'Please share the time horizon of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_8 if indicator.DMA_Social_4_Consumer_and_end_users_8!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_8__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'Short-Term/Medium-Term/Long-Term', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
+    if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_9'):
+      indicator.DMA_Social_4_Consumer_and_end_users_9 = '_n/a_'
+    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_4_Consumer_and_end_users_8 if indicator.DMA_Social_4_Consumer_and_end_users_8!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_9__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
   if DMA_Social_4_Consumer_and_end_users_1 not in ['Yes', 'Partly']:
     DMA_Social_4_Consumer_and_end_users_2.clear()
-  survey_data.append({'name': 'Has the undertaking identified positive impacts concerning consumers and end-users?', 'value': DMA_Social_4_Consumer_and_end_users_9, 'id': 'DMA_Social_4_Consumer_and_end_users_9', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified positive impacts on consumers and end-users.', 'dynamic_condition_criteria': 'Yes/Partly'})
-  if DMA_Social_4_Consumer_and_end_users_9 in ['Yes', 'Partly']:
-    DMA_Social_4_Consumer_and_end_users_10.gather()
+  survey_data.append({'name': 'Has the undertaking identified positive impacts concerning consumers and end-users?', 'value': DMA_Social_4_Consumer_and_end_users_10 if DMA_Social_4_Consumer_and_end_users_10!='None' else '_n/a_', 'id': 'DMA_Social_4_Consumer_and_end_users_10', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified positive impacts on consumers and end-users.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  if DMA_Social_4_Consumer_and_end_users_10 in ['Yes', 'Partly']:
+    DMA_Social_4_Consumer_and_end_users_11.gather()
   else:
     EmptyPlaceHolderThing.name.text = ''
-    DMA_Social_4_Consumer_and_end_users_10.append(EmptyPlaceHolderThing)
-    DMA_Social_4_Consumer_and_end_users_10.there_is_another = False
-    DMA_Social_4_Consumer_and_end_users_10.gathered = True
-  for index, indicator in enumerate(DMA_Social_4_Consumer_and_end_users_10):
-    if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_11'):
-      indicator.DMA_Social_4_Consumer_and_end_users_11 = '_n/a_'
-    survey_data.append({'name': 'Please provide a short description of the positive impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_11, 'id': f'DMA_Social_4_Consumer_and_end_users_11__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_9'})
+    DMA_Social_4_Consumer_and_end_users_11.append(EmptyPlaceHolderThing)
+    DMA_Social_4_Consumer_and_end_users_11.there_is_another = False
+    DMA_Social_4_Consumer_and_end_users_11.gathered = True
+  for index, indicator in enumerate(DMA_Social_4_Consumer_and_end_users_11):
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_12'):
       indicator.DMA_Social_4_Consumer_and_end_users_12 = '_n/a_'
-    survey_data.append({'name': 'Please share the scale of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_12, 'id': f'DMA_Social_4_Consumer_and_end_users_12__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_9'})
+    survey_data.append({'name': 'Please provide a short description of the positive impact on consumers and end-users.', 'value': DMA_Social_4_Consumer_and_end_users_10 if DMA_Social_4_Consumer_and_end_users_10!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_12__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_10'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_13'):
       indicator.DMA_Social_4_Consumer_and_end_users_13 = '_n/a_'
-    survey_data.append({'name': 'Please share the scope of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_13, 'id': f'DMA_Social_4_Consumer_and_end_users_13__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_9'})
+    survey_data.append({'name': 'Please share the scale of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_13 if indicator.DMA_Social_4_Consumer_and_end_users_13!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_13__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_10'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_14'):
       indicator.DMA_Social_4_Consumer_and_end_users_14 = '_n/a_'
-    survey_data.append({'name': 'Please share the likelihood of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_14, 'id': f'DMA_Social_4_Consumer_and_end_users_14__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_9'})
-  if DMA_Social_4_Consumer_and_end_users_9 not in ['Yes', 'Partly']:
-    DMA_Social_4_Consumer_and_end_users_10.clear()
-  survey_data.append({'name': 'Has the undertaking identified risks concerning consumers and end-users?', 'value': DMA_Social_4_Consumer_and_end_users_15, 'id': 'DMA_Social_4_Consumer_and_end_users_15', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk concerning consumers and end-users.', 'dynamic_condition_criteria': 'Yes/Partly'})
-  if DMA_Social_4_Consumer_and_end_users_15 in ['Yes', 'Partly']:
-    DMA_Social_4_Consumer_and_end_users_16.gather()
+    survey_data.append({'name': 'Please share the scope of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_14 if indicator.DMA_Social_4_Consumer_and_end_users_14!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_14__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_10'})
+    if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_15'):
+      indicator.DMA_Social_4_Consumer_and_end_users_15 = '_n/a_'
+    survey_data.append({'name': 'Please share the likelihood of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_15 if indicator.DMA_Social_4_Consumer_and_end_users_15!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_15__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_10'})
+    if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_16'):
+      indicator.DMA_Social_4_Consumer_and_end_users_16 = '_n/a_'
+    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_4_Consumer_and_end_users_15 if indicator.DMA_Social_4_Consumer_and_end_users_15!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_16__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_10'})
+  if DMA_Social_4_Consumer_and_end_users_10 not in ['Yes', 'Partly']:
+    DMA_Social_4_Consumer_and_end_users_11.clear()
+  survey_data.append({'name': 'Has the undertaking identified risks concerning consumers and end-users?', 'value': DMA_Social_4_Consumer_and_end_users_17 if DMA_Social_4_Consumer_and_end_users_17!='None' else '_n/a_', 'id': 'DMA_Social_4_Consumer_and_end_users_17', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk concerning consumers and end-users.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  if DMA_Social_4_Consumer_and_end_users_17 in ['Yes', 'Partly']:
+    DMA_Social_4_Consumer_and_end_users_18.gather()
   else:
     EmptyPlaceHolderThing.name.text = ''
-    DMA_Social_4_Consumer_and_end_users_16.append(EmptyPlaceHolderThing)
-    DMA_Social_4_Consumer_and_end_users_16.there_is_another = False
-    DMA_Social_4_Consumer_and_end_users_16.gathered = True
-  for index, indicator in enumerate(DMA_Social_4_Consumer_and_end_users_16):
-    if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_17'):
-      indicator.DMA_Social_4_Consumer_and_end_users_17 = '_n/a_'
-    survey_data.append({'name': 'Please provide a short description of the risk.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_17, 'id': f'DMA_Social_4_Consumer_and_end_users_17__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_15'})
-    if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_18'):
-      indicator.DMA_Social_4_Consumer_and_end_users_18 = '_n/a_'
-    survey_data.append({'name': 'Please share the likelihood of occurrence for the risk.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_18, 'id': f'DMA_Social_4_Consumer_and_end_users_18__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_15'})
+    DMA_Social_4_Consumer_and_end_users_18.append(EmptyPlaceHolderThing)
+    DMA_Social_4_Consumer_and_end_users_18.there_is_another = False
+    DMA_Social_4_Consumer_and_end_users_18.gathered = True
+  for index, indicator in enumerate(DMA_Social_4_Consumer_and_end_users_18):
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_19'):
       indicator.DMA_Social_4_Consumer_and_end_users_19 = '_n/a_'
-    survey_data.append({'name': 'Please share the potential magnitude of effects in the short term.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_19, 'id': f'DMA_Social_4_Consumer_and_end_users_19__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_15'})
+    survey_data.append({'name': 'Please provide a short description of the risk.', 'value': DMA_Social_4_Consumer_and_end_users_17 if DMA_Social_4_Consumer_and_end_users_17!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_19__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_17'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_20'):
       indicator.DMA_Social_4_Consumer_and_end_users_20 = '_n/a_'
-    survey_data.append({'name': 'Please share the potential magnitude of effects in the medium term.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_20, 'id': f'DMA_Social_4_Consumer_and_end_users_20__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_15'})
+    survey_data.append({'name': 'Please share the likelihood of occurrence for the risk.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_20 if indicator.DMA_Social_4_Consumer_and_end_users_20!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_20__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_17'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_21'):
       indicator.DMA_Social_4_Consumer_and_end_users_21 = '_n/a_'
-    survey_data.append({'name': 'Please share the potential magnitude of effects in the long term.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_21, 'id': f'DMA_Social_4_Consumer_and_end_users_21__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_15'})
-  if DMA_Social_4_Consumer_and_end_users_15 not in ['Yes', 'Partly']:
-    DMA_Social_4_Consumer_and_end_users_16.clear()
-  survey_data.append({'name': 'Has the undertaking identified opportunities concerning consumers and end-users?', 'value': DMA_Social_4_Consumer_and_end_users_22, 'id': 'DMA_Social_4_Consumer_and_end_users_22', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified opportunity concerning consumers and end-users.', 'dynamic_condition_criteria': 'Yes/Partly'})
-  if DMA_Social_4_Consumer_and_end_users_22 in ['Yes', 'Partly']:
-    DMA_Social_4_Consumer_and_end_users_23.gather()
-  else:
-    EmptyPlaceHolderThing.name.text = ''
-    DMA_Social_4_Consumer_and_end_users_23.append(EmptyPlaceHolderThing)
-    DMA_Social_4_Consumer_and_end_users_23.there_is_another = False
-    DMA_Social_4_Consumer_and_end_users_23.gathered = True
-  for index, indicator in enumerate(DMA_Social_4_Consumer_and_end_users_23):
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the short term.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_21 if indicator.DMA_Social_4_Consumer_and_end_users_21!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_21__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_17'})
+    if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_22'):
+      indicator.DMA_Social_4_Consumer_and_end_users_22 = '_n/a_'
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the medium term.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_22 if indicator.DMA_Social_4_Consumer_and_end_users_22!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_22__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_17'})
+    if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_23'):
+      indicator.DMA_Social_4_Consumer_and_end_users_23 = '_n/a_'
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the long term.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_23 if indicator.DMA_Social_4_Consumer_and_end_users_23!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_23__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_17'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_24'):
       indicator.DMA_Social_4_Consumer_and_end_users_24 = '_n/a_'
-    survey_data.append({'name': 'Please provide a short description of the opportunity.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_24, 'id': f'DMA_Social_4_Consumer_and_end_users_24__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_22'})
-    if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_25'):
-      indicator.DMA_Social_4_Consumer_and_end_users_25 = '_n/a_'
-    survey_data.append({'name': 'Please share the likelihood of occurrence for the opportunity.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_25, 'id': f'DMA_Social_4_Consumer_and_end_users_25__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_22'})
-    if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_26'):
-      indicator.DMA_Social_4_Consumer_and_end_users_26 = '_n/a_'
-    survey_data.append({'name': 'Please share the potential magnitude of effects in the short term.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_26, 'id': f'DMA_Social_4_Consumer_and_end_users_26__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_22'})
+    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_4_Consumer_and_end_users_23 if indicator.DMA_Social_4_Consumer_and_end_users_23!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_24__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_17'})
+  if DMA_Social_4_Consumer_and_end_users_17 not in ['Yes', 'Partly']:
+    DMA_Social_4_Consumer_and_end_users_18.clear()
+  survey_data.append({'name': 'Has the undertaking identified opportunities concerning consumers and end-users?', 'value': DMA_Social_4_Consumer_and_end_users_25 if DMA_Social_4_Consumer_and_end_users_25!='None' else '_n/a_', 'id': 'DMA_Social_4_Consumer_and_end_users_25', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified opportunity concerning consumers and end-users.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  if DMA_Social_4_Consumer_and_end_users_25 in ['Yes', 'Partly']:
+    DMA_Social_4_Consumer_and_end_users_26.gather()
+  else:
+    EmptyPlaceHolderThing.name.text = ''
+    DMA_Social_4_Consumer_and_end_users_26.append(EmptyPlaceHolderThing)
+    DMA_Social_4_Consumer_and_end_users_26.there_is_another = False
+    DMA_Social_4_Consumer_and_end_users_26.gathered = True
+  for index, indicator in enumerate(DMA_Social_4_Consumer_and_end_users_26):
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_27'):
       indicator.DMA_Social_4_Consumer_and_end_users_27 = '_n/a_'
-    survey_data.append({'name': 'Please share the potential magnitude of effects in the medium term.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_27, 'id': f'DMA_Social_4_Consumer_and_end_users_27__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_22'})
+    survey_data.append({'name': 'Please provide a short description of the opportunity.', 'value': DMA_Social_4_Consumer_and_end_users_25 if DMA_Social_4_Consumer_and_end_users_25!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_27__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_25'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_28'):
       indicator.DMA_Social_4_Consumer_and_end_users_28 = '_n/a_'
-    survey_data.append({'name': 'Please share the potential magnitude of effects in the long term.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_28, 'id': f'DMA_Social_4_Consumer_and_end_users_28__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_22'})
-  if DMA_Social_4_Consumer_and_end_users_22 not in ['Yes', 'Partly']:
-    DMA_Social_4_Consumer_and_end_users_23.clear()
+    survey_data.append({'name': 'Please share the likelihood of occurrence for the opportunity.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_28 if indicator.DMA_Social_4_Consumer_and_end_users_28!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_28__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_25'})
+    if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_29'):
+      indicator.DMA_Social_4_Consumer_and_end_users_29 = '_n/a_'
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the short term.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_29 if indicator.DMA_Social_4_Consumer_and_end_users_29!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_29__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_25'})
+    if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_30'):
+      indicator.DMA_Social_4_Consumer_and_end_users_30 = '_n/a_'
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the medium term.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_30 if indicator.DMA_Social_4_Consumer_and_end_users_30!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_30__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_25'})
+    if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_31'):
+      indicator.DMA_Social_4_Consumer_and_end_users_31 = '_n/a_'
+    survey_data.append({'name': 'Please share the potential magnitude of effects in the long term.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_31 if indicator.DMA_Social_4_Consumer_and_end_users_31!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_31__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_25'})
+    if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_32'):
+      indicator.DMA_Social_4_Consumer_and_end_users_32 = '_n/a_'
+    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_4_Consumer_and_end_users_31 if indicator.DMA_Social_4_Consumer_and_end_users_31!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_32__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_25'})
+  if DMA_Social_4_Consumer_and_end_users_25 not in ['Yes', 'Partly']:
+    DMA_Social_4_Consumer_and_end_users_26.clear()
 
   card_title = 'dma-social 4 consumer and end-users'
   card_description = ''
@@ -204,11 +212,11 @@ code: |
 
   survey_data_ids = [d['id'] for d in survey_data]
   survey_analytics = []
-  survey_analytics.append({"id": "sc_id","name": "score_coverage", "values": [dyn_id for dyn_id in survey_data_ids if any([sa_id in dyn_id for sa_id in ['DMA_Social_4_Consumer_and_end_users_1', 'DMA_Social_4_Consumer_and_end_users_2', 'DMA_Social_4_Consumer_and_end_users_3', 'DMA_Social_4_Consumer_and_end_users_4', 'DMA_Social_4_Consumer_and_end_users_5', 'DMA_Social_4_Consumer_and_end_users_6', 'DMA_Social_4_Consumer_and_end_users_7', 'DMA_Social_4_Consumer_and_end_users_8', 'DMA_Social_4_Consumer_and_end_users_9', 'DMA_Social_4_Consumer_and_end_users_10', 'DMA_Social_4_Consumer_and_end_users_11', 'DMA_Social_4_Consumer_and_end_users_12', 'DMA_Social_4_Consumer_and_end_users_13', 'DMA_Social_4_Consumer_and_end_users_14', 'DMA_Social_4_Consumer_and_end_users_15', 'DMA_Social_4_Consumer_and_end_users_16', 'DMA_Social_4_Consumer_and_end_users_17', 'DMA_Social_4_Consumer_and_end_users_18', 'DMA_Social_4_Consumer_and_end_users_19', 'DMA_Social_4_Consumer_and_end_users_20', 'DMA_Social_4_Consumer_and_end_users_21', 'DMA_Social_4_Consumer_and_end_users_22', 'DMA_Social_4_Consumer_and_end_users_23', 'DMA_Social_4_Consumer_and_end_users_24', 'DMA_Social_4_Consumer_and_end_users_25', 'DMA_Social_4_Consumer_and_end_users_26', 'DMA_Social_4_Consumer_and_end_users_27', 'DMA_Social_4_Consumer_and_end_users_28']])]})
-  survey_analytics.append({"id": "DMA_Social_4_Consumer_and_end_users_F1", "name": "Materialiy assessment for negative impacts", "values": ["DMA_Social_4_Consumer_and_end_users_4", "DMA_Social_4_Consumer_and_end_users_5", "DMA_Social_4_Consumer_and_end_users_6", "DMA_Social_4_Consumer_and_end_users_7", "DMA_Social_4_Consumer_and_end_users_8"], "labels": ["Scale", "Scope", "Irremediability", "Likelihood", "Time-horizon"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER", "OTHER"]})
-  survey_analytics.append({"id": "DMA_Social_4_Consumer_and_end_users_F2", "name": "Materialiy assessment for positive impacts", "values": ["DMA_Social_4_Consumer_and_end_users_12", "DMA_Social_4_Consumer_and_end_users_13", "DMA_Social_4_Consumer_and_end_users_14"], "labels": ["Scale", "Scope", "Likelihood"], "dtypes": ["OTHER", "OTHER", "OTHER"]})
-  survey_analytics.append({"id": "DMA_Social_4_Consumer_and_end_users_F3", "name": "Materialiy assessment for risks (financial materility)", "values": ["DMA_Social_4_Consumer_and_end_users_18", "DMA_Social_4_Consumer_and_end_users_19", "DMA_Social_4_Consumer_and_end_users_20", "DMA_Social_4_Consumer_and_end_users_21"], "labels": ["Likelihood", "Short Term Magnitude", "Medium Term Magnitude", "Long Term Magnitude"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER"]})
-  survey_analytics.append({"id": "DMA_Social_4_Consumer_and_end_users_F4", "name": "Materialiy assessment for opportunities (financial materility)", "values": ["DMA_Social_4_Consumer_and_end_users_25", "DMA_Social_4_Consumer_and_end_users_26", "DMA_Social_4_Consumer_and_end_users_27", "DMA_Social_4_Consumer_and_end_users_28"], "labels": ["Likelihood", "Short Term Magnitude", "Medium Term Magnitude", "Long Term Magnitude"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER"]})
+  survey_analytics.append({"id": "sc_id","name": "score_coverage", "values": [dyn_id for dyn_id in survey_data_ids if any([sa_id in dyn_id for sa_id in ['DMA_Social_4_Consumer_and_end_users_1', 'DMA_Social_4_Consumer_and_end_users_4', 'DMA_Social_4_Consumer_and_end_users_5', 'DMA_Social_4_Consumer_and_end_users_6', 'DMA_Social_4_Consumer_and_end_users_7', 'DMA_Social_4_Consumer_and_end_users_8', 'DMA_Social_4_Consumer_and_end_users_10', 'DMA_Social_4_Consumer_and_end_users_13', 'DMA_Social_4_Consumer_and_end_users_14', 'DMA_Social_4_Consumer_and_end_users_15', 'DMA_Social_4_Consumer_and_end_users_17', 'DMA_Social_4_Consumer_and_end_users_20', 'DMA_Social_4_Consumer_and_end_users_21', 'DMA_Social_4_Consumer_and_end_users_22', 'DMA_Social_4_Consumer_and_end_users_23', 'DMA_Social_4_Consumer_and_end_users_25', 'DMA_Social_4_Consumer_and_end_users_28', 'DMA_Social_4_Consumer_and_end_users_29', 'DMA_Social_4_Consumer_and_end_users_30', 'DMA_Social_4_Consumer_and_end_users_31']])]})
+  survey_analytics.append({"id": "DMA_Social_4_Consumer_and_end_users_F1", "name": "Materiality assessment for negative impacts", "values": ["DMA_Social_4_Consumer_and_end_users_4", "DMA_Social_4_Consumer_and_end_users_5", "DMA_Social_4_Consumer_and_end_users_6", "DMA_Social_4_Consumer_and_end_users_7", "DMA_Social_4_Consumer_and_end_users_8", "DMA_Social_4_Consumer_and_end_users_9"], "labels": ["Scale", "Scope", "Irremediability", "Likelihood", "Time-horizon", "Elaboration"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER", "OTHER", "OPEN"]})
+  survey_analytics.append({"id": "DMA_Social_4_Consumer_and_end_users_F2", "name": "Materiality assessment for positive impacts", "values": ["DMA_Social_4_Consumer_and_end_users_13", "DMA_Social_4_Consumer_and_end_users_14", "DMA_Social_4_Consumer_and_end_users_15", "DMA_Social_4_Consumer_and_end_users_16"], "labels": ["Scale", "Scope", "Likelihood", "Elaboration"], "dtypes": ["OTHER", "OTHER", "OTHER", "OPEN"]})
+  survey_analytics.append({"id": "DMA_Social_4_Consumer_and_end_users_F3", "name": "Materiality assessment for risks (financial materiality)", "values": ["DMA_Social_4_Consumer_and_end_users_20", "DMA_Social_4_Consumer_and_end_users_21", "DMA_Social_4_Consumer_and_end_users_22", "DMA_Social_4_Consumer_and_end_users_23", "DMA_Social_4_Consumer_and_end_users_24"], "labels": ["Likelihood", "Short Term Magnitude", "Medium Term Magnitude", "Long Term Magnitude", "Elaboration"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER", "OPEN"]})
+  survey_analytics.append({"id": "DMA_Social_4_Consumer_and_end_users_F4", "name": "Materiality assessment for opportunities (financial materiality)", "values": ["DMA_Social_4_Consumer_and_end_users_28", "DMA_Social_4_Consumer_and_end_users_29", "DMA_Social_4_Consumer_and_end_users_30", "DMA_Social_4_Consumer_and_end_users_31", "DMA_Social_4_Consumer_and_end_users_32"], "labels": ["Likelihood", "Short Term Magnitude", "Medium Term Magnitude", "Long Term Magnitude", "Elaboration"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER", "OPEN"]})
 
   survey_analytics_dq = []
   for sa_idx, sa in enumerate(survey_analytics):
@@ -326,13 +334,16 @@ fields:
     input type: radio
     choices: ['Short-Term', 'Medium-Term', 'Long-Term']
     required: false
+  - Please give a short elaboration on your assessment: DMA_Social_4_Consumer_and_end_users_2[i].DMA_Social_4_Consumer_and_end_users_9
+    datatype: text
+    required: false
 --- 
 progress: 25
 question: |
   Has the undertaking identified positive impacts concerning consumers and end-users? 
 back button: True
 fields:
-  - no label: DMA_Social_4_Consumer_and_end_users_9
+  - no label: DMA_Social_4_Consumer_and_end_users_10
     input type: radio
     required: false
     choices:
@@ -341,12 +352,12 @@ fields:
       - Partly
 ---
 objects:
-  - DMA_Social_4_Consumer_and_end_users_10: DAList.using(object_type=Thing, there_are_any=True)
+  - DMA_Social_4_Consumer_and_end_users_11: DAList.using(object_type=Thing, there_are_any=True)
   - EmptyPlaceHolderThing: Thing
 ---
 question: |
   Would you like to add another?
-yesno: DMA_Social_4_Consumer_and_end_users_10.there_is_another
+yesno: DMA_Social_4_Consumer_and_end_users_11.there_is_another
 back button: True
 ---
 progress: 38
@@ -354,20 +365,23 @@ question: |
   Please elaborate on the questions below for identified positive impacts on consumers and end-users.
 back button: True
 fields:
-  - Please provide a short description of the positive impact on consumers and end-users.: DMA_Social_4_Consumer_and_end_users_10[i].DMA_Social_4_Consumer_and_end_users_11
+  - Please provide a short description of the positive impact on consumers and end-users.: DMA_Social_4_Consumer_and_end_users_11[i].DMA_Social_4_Consumer_and_end_users_12
     datatype: text
     required: false
-  - Please share the scale of the impact on consumers and end-users.: DMA_Social_4_Consumer_and_end_users_10[i].DMA_Social_4_Consumer_and_end_users_12
+  - Please share the scale of the impact on consumers and end-users.: DMA_Social_4_Consumer_and_end_users_11[i].DMA_Social_4_Consumer_and_end_users_13
     input type: radio
     choices: ['1', '2', '3', '4', '5', 'Not Sure']
     required: false
-  - Please share the scope of the impact on consumers and end-users.: DMA_Social_4_Consumer_and_end_users_10[i].DMA_Social_4_Consumer_and_end_users_13
+  - Please share the scope of the impact on consumers and end-users.: DMA_Social_4_Consumer_and_end_users_11[i].DMA_Social_4_Consumer_and_end_users_14
     input type: radio
     choices: ['1', '2', '3', '4', '5', 'Not Sure']
     required: false
-  - Please share the likelihood of the impact on consumers and end-users.: DMA_Social_4_Consumer_and_end_users_10[i].DMA_Social_4_Consumer_and_end_users_14
+  - Please share the likelihood of the impact on consumers and end-users.: DMA_Social_4_Consumer_and_end_users_11[i].DMA_Social_4_Consumer_and_end_users_15
     input type: radio
     choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+  - Please give a short elaboration on your assessment: DMA_Social_4_Consumer_and_end_users_11[i].DMA_Social_4_Consumer_and_end_users_16
+    datatype: text
     required: false
 --- 
 progress: 50
@@ -375,7 +389,7 @@ question: |
   Has the undertaking identified risks concerning consumers and end-users? 
 back button: True
 fields:
-  - no label: DMA_Social_4_Consumer_and_end_users_15
+  - no label: DMA_Social_4_Consumer_and_end_users_17
     input type: radio
     required: false
     choices:
@@ -384,12 +398,12 @@ fields:
       - Partly
 ---
 objects:
-  - DMA_Social_4_Consumer_and_end_users_16: DAList.using(object_type=Thing, there_are_any=True)
+  - DMA_Social_4_Consumer_and_end_users_18: DAList.using(object_type=Thing, there_are_any=True)
   - EmptyPlaceHolderThing: Thing
 ---
 question: |
   Would you like to add another?
-yesno: DMA_Social_4_Consumer_and_end_users_16.there_is_another
+yesno: DMA_Social_4_Consumer_and_end_users_18.there_is_another
 back button: True
 ---
 progress: 63
@@ -397,24 +411,27 @@ question: |
   Please elaborate on the questions below for an identified risk concerning consumers and end-users.
 back button: True
 fields:
-  - Please provide a short description of the risk.: DMA_Social_4_Consumer_and_end_users_16[i].DMA_Social_4_Consumer_and_end_users_17
+  - Please provide a short description of the risk.: DMA_Social_4_Consumer_and_end_users_18[i].DMA_Social_4_Consumer_and_end_users_19
     datatype: text
     required: false
-  - Please share the likelihood of occurrence for the risk.: DMA_Social_4_Consumer_and_end_users_16[i].DMA_Social_4_Consumer_and_end_users_18
+  - Please share the likelihood of occurrence for the risk.: DMA_Social_4_Consumer_and_end_users_18[i].DMA_Social_4_Consumer_and_end_users_20
     input type: radio
     choices: ['1', '2', '3', '4', '5', 'Not Sure']
     required: false
-  - Please share the potential magnitude of effects in the short term.: DMA_Social_4_Consumer_and_end_users_16[i].DMA_Social_4_Consumer_and_end_users_19
+  - Please share the potential magnitude of effects in the short term.: DMA_Social_4_Consumer_and_end_users_18[i].DMA_Social_4_Consumer_and_end_users_21
     input type: radio
     choices: ['1', '2', '3', '4', '5', 'Not Sure']
     required: false
-  - Please share the potential magnitude of effects in the medium term.: DMA_Social_4_Consumer_and_end_users_16[i].DMA_Social_4_Consumer_and_end_users_20
+  - Please share the potential magnitude of effects in the medium term.: DMA_Social_4_Consumer_and_end_users_18[i].DMA_Social_4_Consumer_and_end_users_22
     input type: radio
     choices: ['1', '2', '3', '4', '5', 'Not Sure']
     required: false
-  - Please share the potential magnitude of effects in the long term.: DMA_Social_4_Consumer_and_end_users_16[i].DMA_Social_4_Consumer_and_end_users_21
+  - Please share the potential magnitude of effects in the long term.: DMA_Social_4_Consumer_and_end_users_18[i].DMA_Social_4_Consumer_and_end_users_23
     input type: radio
     choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+  - Please give a short elaboration on your assessment: DMA_Social_4_Consumer_and_end_users_18[i].DMA_Social_4_Consumer_and_end_users_24
+    datatype: text
     required: false
 --- 
 progress: 75
@@ -422,7 +439,7 @@ question: |
   Has the undertaking identified opportunities concerning consumers and end-users? 
 back button: True
 fields:
-  - no label: DMA_Social_4_Consumer_and_end_users_22
+  - no label: DMA_Social_4_Consumer_and_end_users_25
     input type: radio
     required: false
     choices:
@@ -431,12 +448,12 @@ fields:
       - Partly
 ---
 objects:
-  - DMA_Social_4_Consumer_and_end_users_23: DAList.using(object_type=Thing, there_are_any=True)
+  - DMA_Social_4_Consumer_and_end_users_26: DAList.using(object_type=Thing, there_are_any=True)
   - EmptyPlaceHolderThing: Thing
 ---
 question: |
   Would you like to add another?
-yesno: DMA_Social_4_Consumer_and_end_users_23.there_is_another
+yesno: DMA_Social_4_Consumer_and_end_users_26.there_is_another
 back button: True
 ---
 progress: 88
@@ -444,37 +461,40 @@ question: |
   Please elaborate on the questions below for an identified opportunity concerning consumers and end-users.
 back button: True
 fields:
-  - Please provide a short description of the opportunity.: DMA_Social_4_Consumer_and_end_users_23[i].DMA_Social_4_Consumer_and_end_users_24
+  - Please provide a short description of the opportunity.: DMA_Social_4_Consumer_and_end_users_26[i].DMA_Social_4_Consumer_and_end_users_27
     datatype: text
     required: false
-  - Please share the likelihood of occurrence for the opportunity.: DMA_Social_4_Consumer_and_end_users_23[i].DMA_Social_4_Consumer_and_end_users_25
+  - Please share the likelihood of occurrence for the opportunity.: DMA_Social_4_Consumer_and_end_users_26[i].DMA_Social_4_Consumer_and_end_users_28
     input type: radio
     choices: ['1', '2', '3', '4', '5', 'Not Sure']
     required: false
-  - Please share the potential magnitude of effects in the short term.: DMA_Social_4_Consumer_and_end_users_23[i].DMA_Social_4_Consumer_and_end_users_26
+  - Please share the potential magnitude of effects in the short term.: DMA_Social_4_Consumer_and_end_users_26[i].DMA_Social_4_Consumer_and_end_users_29
     input type: radio
     choices: ['1', '2', '3', '4', '5', 'Not Sure']
     required: false
-  - Please share the potential magnitude of effects in the medium term.: DMA_Social_4_Consumer_and_end_users_23[i].DMA_Social_4_Consumer_and_end_users_27
+  - Please share the potential magnitude of effects in the medium term.: DMA_Social_4_Consumer_and_end_users_26[i].DMA_Social_4_Consumer_and_end_users_30
     input type: radio
     choices: ['1', '2', '3', '4', '5', 'Not Sure']
     required: false
-  - Please share the potential magnitude of effects in the long term.: DMA_Social_4_Consumer_and_end_users_23[i].DMA_Social_4_Consumer_and_end_users_28
+  - Please share the potential magnitude of effects in the long term.: DMA_Social_4_Consumer_and_end_users_26[i].DMA_Social_4_Consumer_and_end_users_31
     input type: radio
     choices: ['1', '2', '3', '4', '5', 'Not Sure']
+    required: false
+  - Please give a short elaboration on your assessment: DMA_Social_4_Consumer_and_end_users_26[i].DMA_Social_4_Consumer_and_end_users_32
+    datatype: text
     required: false
 ---
 code: |
   DMA_Social_4_Consumer_and_end_users_2[i].name.text=DMA_Social_4_Consumer_and_end_users_2[i].DMA_Social_4_Consumer_and_end_users_3
 ---
 code: |
-  DMA_Social_4_Consumer_and_end_users_10[i].name.text=DMA_Social_4_Consumer_and_end_users_10[i].DMA_Social_4_Consumer_and_end_users_11
+  DMA_Social_4_Consumer_and_end_users_11[i].name.text=DMA_Social_4_Consumer_and_end_users_11[i].DMA_Social_4_Consumer_and_end_users_12
 ---
 code: |
-  DMA_Social_4_Consumer_and_end_users_16[i].name.text=DMA_Social_4_Consumer_and_end_users_16[i].DMA_Social_4_Consumer_and_end_users_17
+  DMA_Social_4_Consumer_and_end_users_18[i].name.text=DMA_Social_4_Consumer_and_end_users_18[i].DMA_Social_4_Consumer_and_end_users_19
 ---
 code: |
-  DMA_Social_4_Consumer_and_end_users_23[i].name.text=DMA_Social_4_Consumer_and_end_users_23[i].DMA_Social_4_Consumer_and_end_users_24
+  DMA_Social_4_Consumer_and_end_users_26[i].name.text=DMA_Social_4_Consumer_and_end_users_26[i].DMA_Social_4_Consumer_and_end_users_27
 ---
 #! Response report before submission
 progress: 100
