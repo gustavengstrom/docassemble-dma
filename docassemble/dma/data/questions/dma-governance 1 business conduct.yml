@@ -6,7 +6,7 @@ metadata:
   show login: False
   description: |
     DESCRIPTION 
-  revision_date: 2024-09-03
+  revision_date: 2024-09-04
 ---
 modules:
   - .post
@@ -85,7 +85,7 @@ code: |
   for index, indicator in enumerate(DMA_Governance_1_Business_conduct_2):
     if not indicator.attribute_defined('DMA_Governance_1_Business_conduct_3'):
       indicator.DMA_Governance_1_Business_conduct_3 = '_n/a_'
-    survey_data.append({'name': 'Please provide a short description of the negative impact on governance matters.', 'value': DMA_Governance_1_Business_conduct_1 if DMA_Governance_1_Business_conduct_1!='None' else '_n/a_', 'id': f'DMA_Governance_1_Business_conduct_3__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_1'})
+    survey_data.append({'name': 'Please provide a short description of the negative impact on governance matters.', 'value': indicator.DMA_Governance_1_Business_conduct_3, 'id': f'DMA_Governance_1_Business_conduct_3__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_1'})
     if not indicator.attribute_defined('DMA_Governance_1_Business_conduct_4'):
       indicator.DMA_Governance_1_Business_conduct_4 = '_n/a_'
     survey_data.append({'name': 'Please share the scale of the impact on governance matters.', 'value': indicator.DMA_Governance_1_Business_conduct_4 if indicator.DMA_Governance_1_Business_conduct_4!='None' else '_n/a_', 'id': f'DMA_Governance_1_Business_conduct_4__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Governance_1_Business_conduct_1'})
@@ -103,7 +103,7 @@ code: |
     survey_data.append({'name': 'Please share the time horizon of the impact on governance matters.', 'value': indicator.DMA_Governance_1_Business_conduct_8 if indicator.DMA_Governance_1_Business_conduct_8!='None' else '_n/a_', 'id': f'DMA_Governance_1_Business_conduct_8__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'Short-Term/Medium-Term/Long-Term', 'condition': 'DMA_Governance_1_Business_conduct_1'})
     if not indicator.attribute_defined('DMA_Governance_1_Business_conduct_9'):
       indicator.DMA_Governance_1_Business_conduct_9 = '_n/a_'
-    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Governance_1_Business_conduct_8 if indicator.DMA_Governance_1_Business_conduct_8!='None' else '_n/a_', 'id': f'DMA_Governance_1_Business_conduct_9__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_1'})
+    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Governance_1_Business_conduct_9, 'id': f'DMA_Governance_1_Business_conduct_9__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_1'})
   if DMA_Governance_1_Business_conduct_1 not in ['Yes', 'Partly']:
     DMA_Governance_1_Business_conduct_2.clear()
   survey_data.append({'name': 'Has the undertaking identified positive impacts concerning governance matters?', 'value': DMA_Governance_1_Business_conduct_10 if DMA_Governance_1_Business_conduct_10!='None' else '_n/a_', 'id': 'DMA_Governance_1_Business_conduct_10', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified positive impacts on governance matters.', 'dynamic_condition_criteria': 'Yes/Partly'})
@@ -117,7 +117,7 @@ code: |
   for index, indicator in enumerate(DMA_Governance_1_Business_conduct_11):
     if not indicator.attribute_defined('DMA_Governance_1_Business_conduct_12'):
       indicator.DMA_Governance_1_Business_conduct_12 = '_n/a_'
-    survey_data.append({'name': 'Please provide a short description of the positive impact on governance matters.', 'value': DMA_Governance_1_Business_conduct_10 if DMA_Governance_1_Business_conduct_10!='None' else '_n/a_', 'id': f'DMA_Governance_1_Business_conduct_12__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_10'})
+    survey_data.append({'name': 'Please provide a short description of the positive impact on governance matters.', 'value': indicator.DMA_Governance_1_Business_conduct_12, 'id': f'DMA_Governance_1_Business_conduct_12__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_10'})
     if not indicator.attribute_defined('DMA_Governance_1_Business_conduct_13'):
       indicator.DMA_Governance_1_Business_conduct_13 = '_n/a_'
     survey_data.append({'name': 'Please share the scale of the impact on governance matters.', 'value': indicator.DMA_Governance_1_Business_conduct_13 if indicator.DMA_Governance_1_Business_conduct_13!='None' else '_n/a_', 'id': f'DMA_Governance_1_Business_conduct_13__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Governance_1_Business_conduct_10'})
@@ -129,7 +129,7 @@ code: |
     survey_data.append({'name': 'Please share the likelihood of the impact on governance matters.', 'value': indicator.DMA_Governance_1_Business_conduct_15 if indicator.DMA_Governance_1_Business_conduct_15!='None' else '_n/a_', 'id': f'DMA_Governance_1_Business_conduct_15__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Governance_1_Business_conduct_10'})
     if not indicator.attribute_defined('DMA_Governance_1_Business_conduct_16'):
       indicator.DMA_Governance_1_Business_conduct_16 = '_n/a_'
-    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Governance_1_Business_conduct_15 if indicator.DMA_Governance_1_Business_conduct_15!='None' else '_n/a_', 'id': f'DMA_Governance_1_Business_conduct_16__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_10'})
+    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Governance_1_Business_conduct_16, 'id': f'DMA_Governance_1_Business_conduct_16__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_10'})
   if DMA_Governance_1_Business_conduct_10 not in ['Yes', 'Partly']:
     DMA_Governance_1_Business_conduct_11.clear()
   survey_data.append({'name': 'Has the undertaking identified risks and opportunities concerning concerning governance?', 'value': DMA_Governance_1_Business_conduct_17 if DMA_Governance_1_Business_conduct_17!='None' else '_n/a_', 'id': 'DMA_Governance_1_Business_conduct_17', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk and opportunity concerning governance.', 'dynamic_condition_criteria': 'Yes/Partly'})
@@ -143,7 +143,7 @@ code: |
   for index, indicator in enumerate(DMA_Governance_1_Business_conduct_18):
     if not indicator.attribute_defined('DMA_Governance_1_Business_conduct_19'):
       indicator.DMA_Governance_1_Business_conduct_19 = '_n/a_'
-    survey_data.append({'name': 'Please provide a short description of the risk/opportunity.', 'value': DMA_Governance_1_Business_conduct_17 if DMA_Governance_1_Business_conduct_17!='None' else '_n/a_', 'id': f'DMA_Governance_1_Business_conduct_19__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_17'})
+    survey_data.append({'name': 'Please provide a short description of the risk/opportunity.', 'value': indicator.DMA_Governance_1_Business_conduct_19, 'id': f'DMA_Governance_1_Business_conduct_19__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_17'})
     if not indicator.attribute_defined('DMA_Governance_1_Business_conduct_20'):
       indicator.DMA_Governance_1_Business_conduct_20 = '_n/a_'
     survey_data.append({'name': 'Please share the likelihood of occurrence for the risk or opportunity.', 'value': indicator.DMA_Governance_1_Business_conduct_20 if indicator.DMA_Governance_1_Business_conduct_20!='None' else '_n/a_', 'id': f'DMA_Governance_1_Business_conduct_20__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Governance_1_Business_conduct_17'})
@@ -158,7 +158,7 @@ code: |
     survey_data.append({'name': 'Please share the potential magnitude of effects in the long term.', 'value': indicator.DMA_Governance_1_Business_conduct_23 if indicator.DMA_Governance_1_Business_conduct_23!='None' else '_n/a_', 'id': f'DMA_Governance_1_Business_conduct_23__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Governance_1_Business_conduct_17'})
     if not indicator.attribute_defined('DMA_Governance_1_Business_conduct_24'):
       indicator.DMA_Governance_1_Business_conduct_24 = '_n/a_'
-    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Governance_1_Business_conduct_23 if indicator.DMA_Governance_1_Business_conduct_23!='None' else '_n/a_', 'id': f'DMA_Governance_1_Business_conduct_24__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_17'})
+    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Governance_1_Business_conduct_24, 'id': f'DMA_Governance_1_Business_conduct_24__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_17'})
   if DMA_Governance_1_Business_conduct_17 not in ['Yes', 'Partly']:
     DMA_Governance_1_Business_conduct_18.clear()
   survey_data.append({'name': 'Has the undertaking identified risks and opportunities concerning concerning governance?', 'value': DMA_Governance_1_Business_conduct_25 if DMA_Governance_1_Business_conduct_25!='None' else '_n/a_', 'id': 'DMA_Governance_1_Business_conduct_25', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk and opportunity concerning governance.', 'dynamic_condition_criteria': 'Yes/Partly'})
@@ -172,7 +172,7 @@ code: |
   for index, indicator in enumerate(DMA_Governance_1_Business_conduct_26):
     if not indicator.attribute_defined('DMA_Governance_1_Business_conduct_27'):
       indicator.DMA_Governance_1_Business_conduct_27 = '_n/a_'
-    survey_data.append({'name': 'Please provide a short description of the risk/opportunity.', 'value': DMA_Governance_1_Business_conduct_25 if DMA_Governance_1_Business_conduct_25!='None' else '_n/a_', 'id': f'DMA_Governance_1_Business_conduct_27__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_25'})
+    survey_data.append({'name': 'Please provide a short description of the risk/opportunity.', 'value': indicator.DMA_Governance_1_Business_conduct_27, 'id': f'DMA_Governance_1_Business_conduct_27__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_25'})
     if not indicator.attribute_defined('DMA_Governance_1_Business_conduct_28'):
       indicator.DMA_Governance_1_Business_conduct_28 = '_n/a_'
     survey_data.append({'name': 'Please share the likelihood of occurrence for the risk or opportunity.', 'value': indicator.DMA_Governance_1_Business_conduct_28 if indicator.DMA_Governance_1_Business_conduct_28!='None' else '_n/a_', 'id': f'DMA_Governance_1_Business_conduct_28__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Governance_1_Business_conduct_25'})
@@ -187,7 +187,7 @@ code: |
     survey_data.append({'name': 'Please share the potential magnitude of effects in the long term.', 'value': indicator.DMA_Governance_1_Business_conduct_31 if indicator.DMA_Governance_1_Business_conduct_31!='None' else '_n/a_', 'id': f'DMA_Governance_1_Business_conduct_31__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Governance_1_Business_conduct_25'})
     if not indicator.attribute_defined('DMA_Governance_1_Business_conduct_32'):
       indicator.DMA_Governance_1_Business_conduct_32 = '_n/a_'
-    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Governance_1_Business_conduct_31 if indicator.DMA_Governance_1_Business_conduct_31!='None' else '_n/a_', 'id': f'DMA_Governance_1_Business_conduct_32__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_25'})
+    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Governance_1_Business_conduct_32, 'id': f'DMA_Governance_1_Business_conduct_32__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_25'})
   if DMA_Governance_1_Business_conduct_25 not in ['Yes', 'Partly']:
     DMA_Governance_1_Business_conduct_26.clear()
 

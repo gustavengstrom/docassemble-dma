@@ -41,6 +41,7 @@ def validate_session(data):
     try:
         json_data = json.dumps(data)
         url = f"https://{django_hostname}/webhooks/validate-da-session/"
+        log(f"Validating data st: {url}")
         # "http://django:8000/webhooks/validate-da-session/"
         response = requests.post(
             url,
@@ -72,7 +73,8 @@ def store_interview_results(data):
     data["received_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     try:
         json_data = json.dumps(data)
-        url = f"http://{django_hostname}/webhooks/docassemble_receiver/"
+        url = f"https://{django_hostname}/webhooks/docassemble_receiver/"
+        log(f"Submitting data to: {url}")
         # "http://django:8000/webhooks/docassemble_receiver/"
         response = requests.post(
             url,

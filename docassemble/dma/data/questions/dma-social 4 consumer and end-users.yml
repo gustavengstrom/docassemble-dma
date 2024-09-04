@@ -6,7 +6,7 @@ metadata:
   show login: False
   description: |
     DESCRIPTION 
-  revision_date: 2024-09-03
+  revision_date: 2024-09-04
 ---
 modules:
   - .post
@@ -85,7 +85,7 @@ code: |
   for index, indicator in enumerate(DMA_Social_4_Consumer_and_end_users_2):
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_3'):
       indicator.DMA_Social_4_Consumer_and_end_users_3 = '_n/a_'
-    survey_data.append({'name': 'Please provide a short description of the negative impact on consumers and end-users.', 'value': DMA_Social_4_Consumer_and_end_users_1 if DMA_Social_4_Consumer_and_end_users_1!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_3__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
+    survey_data.append({'name': 'Please provide a short description of the negative impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_3, 'id': f'DMA_Social_4_Consumer_and_end_users_3__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_4'):
       indicator.DMA_Social_4_Consumer_and_end_users_4 = '_n/a_'
     survey_data.append({'name': 'Please share the scale of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_4 if indicator.DMA_Social_4_Consumer_and_end_users_4!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_4__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
@@ -103,7 +103,7 @@ code: |
     survey_data.append({'name': 'Please share the time horizon of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_8 if indicator.DMA_Social_4_Consumer_and_end_users_8!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_8__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'Short-Term/Medium-Term/Long-Term', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_9'):
       indicator.DMA_Social_4_Consumer_and_end_users_9 = '_n/a_'
-    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_4_Consumer_and_end_users_8 if indicator.DMA_Social_4_Consumer_and_end_users_8!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_9__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
+    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_4_Consumer_and_end_users_9, 'id': f'DMA_Social_4_Consumer_and_end_users_9__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_1'})
   if DMA_Social_4_Consumer_and_end_users_1 not in ['Yes', 'Partly']:
     DMA_Social_4_Consumer_and_end_users_2.clear()
   survey_data.append({'name': 'Has the undertaking identified positive impacts concerning consumers and end-users?', 'value': DMA_Social_4_Consumer_and_end_users_10 if DMA_Social_4_Consumer_and_end_users_10!='None' else '_n/a_', 'id': 'DMA_Social_4_Consumer_and_end_users_10', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified positive impacts on consumers and end-users.', 'dynamic_condition_criteria': 'Yes/Partly'})
@@ -117,7 +117,7 @@ code: |
   for index, indicator in enumerate(DMA_Social_4_Consumer_and_end_users_11):
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_12'):
       indicator.DMA_Social_4_Consumer_and_end_users_12 = '_n/a_'
-    survey_data.append({'name': 'Please provide a short description of the positive impact on consumers and end-users.', 'value': DMA_Social_4_Consumer_and_end_users_10 if DMA_Social_4_Consumer_and_end_users_10!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_12__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_10'})
+    survey_data.append({'name': 'Please provide a short description of the positive impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_12, 'id': f'DMA_Social_4_Consumer_and_end_users_12__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_10'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_13'):
       indicator.DMA_Social_4_Consumer_and_end_users_13 = '_n/a_'
     survey_data.append({'name': 'Please share the scale of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_13 if indicator.DMA_Social_4_Consumer_and_end_users_13!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_13__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_10'})
@@ -129,7 +129,7 @@ code: |
     survey_data.append({'name': 'Please share the likelihood of the impact on consumers and end-users.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_15 if indicator.DMA_Social_4_Consumer_and_end_users_15!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_15__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_10'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_16'):
       indicator.DMA_Social_4_Consumer_and_end_users_16 = '_n/a_'
-    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_4_Consumer_and_end_users_15 if indicator.DMA_Social_4_Consumer_and_end_users_15!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_16__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_10'})
+    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_4_Consumer_and_end_users_16, 'id': f'DMA_Social_4_Consumer_and_end_users_16__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_10'})
   if DMA_Social_4_Consumer_and_end_users_10 not in ['Yes', 'Partly']:
     DMA_Social_4_Consumer_and_end_users_11.clear()
   survey_data.append({'name': 'Has the undertaking identified risks concerning consumers and end-users?', 'value': DMA_Social_4_Consumer_and_end_users_17 if DMA_Social_4_Consumer_and_end_users_17!='None' else '_n/a_', 'id': 'DMA_Social_4_Consumer_and_end_users_17', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk concerning consumers and end-users.', 'dynamic_condition_criteria': 'Yes/Partly'})
@@ -143,7 +143,7 @@ code: |
   for index, indicator in enumerate(DMA_Social_4_Consumer_and_end_users_18):
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_19'):
       indicator.DMA_Social_4_Consumer_and_end_users_19 = '_n/a_'
-    survey_data.append({'name': 'Please provide a short description of the risk.', 'value': DMA_Social_4_Consumer_and_end_users_17 if DMA_Social_4_Consumer_and_end_users_17!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_19__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_17'})
+    survey_data.append({'name': 'Please provide a short description of the risk.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_19, 'id': f'DMA_Social_4_Consumer_and_end_users_19__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_17'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_20'):
       indicator.DMA_Social_4_Consumer_and_end_users_20 = '_n/a_'
     survey_data.append({'name': 'Please share the likelihood of occurrence for the risk.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_20 if indicator.DMA_Social_4_Consumer_and_end_users_20!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_20__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_17'})
@@ -158,7 +158,7 @@ code: |
     survey_data.append({'name': 'Please share the potential magnitude of effects in the long term.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_23 if indicator.DMA_Social_4_Consumer_and_end_users_23!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_23__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_17'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_24'):
       indicator.DMA_Social_4_Consumer_and_end_users_24 = '_n/a_'
-    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_4_Consumer_and_end_users_23 if indicator.DMA_Social_4_Consumer_and_end_users_23!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_24__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_17'})
+    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_4_Consumer_and_end_users_24, 'id': f'DMA_Social_4_Consumer_and_end_users_24__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_17'})
   if DMA_Social_4_Consumer_and_end_users_17 not in ['Yes', 'Partly']:
     DMA_Social_4_Consumer_and_end_users_18.clear()
   survey_data.append({'name': 'Has the undertaking identified opportunities concerning consumers and end-users?', 'value': DMA_Social_4_Consumer_and_end_users_25 if DMA_Social_4_Consumer_and_end_users_25!='None' else '_n/a_', 'id': 'DMA_Social_4_Consumer_and_end_users_25', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified opportunity concerning consumers and end-users.', 'dynamic_condition_criteria': 'Yes/Partly'})
@@ -172,7 +172,7 @@ code: |
   for index, indicator in enumerate(DMA_Social_4_Consumer_and_end_users_26):
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_27'):
       indicator.DMA_Social_4_Consumer_and_end_users_27 = '_n/a_'
-    survey_data.append({'name': 'Please provide a short description of the opportunity.', 'value': DMA_Social_4_Consumer_and_end_users_25 if DMA_Social_4_Consumer_and_end_users_25!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_27__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_25'})
+    survey_data.append({'name': 'Please provide a short description of the opportunity.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_27, 'id': f'DMA_Social_4_Consumer_and_end_users_27__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_25'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_28'):
       indicator.DMA_Social_4_Consumer_and_end_users_28 = '_n/a_'
     survey_data.append({'name': 'Please share the likelihood of occurrence for the opportunity.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_28 if indicator.DMA_Social_4_Consumer_and_end_users_28!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_28__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_25'})
@@ -187,7 +187,7 @@ code: |
     survey_data.append({'name': 'Please share the potential magnitude of effects in the long term.', 'value': indicator.DMA_Social_4_Consumer_and_end_users_31 if indicator.DMA_Social_4_Consumer_and_end_users_31!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_31__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_4_Consumer_and_end_users_25'})
     if not indicator.attribute_defined('DMA_Social_4_Consumer_and_end_users_32'):
       indicator.DMA_Social_4_Consumer_and_end_users_32 = '_n/a_'
-    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_4_Consumer_and_end_users_31 if indicator.DMA_Social_4_Consumer_and_end_users_31!='None' else '_n/a_', 'id': f'DMA_Social_4_Consumer_and_end_users_32__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_25'})
+    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_4_Consumer_and_end_users_32, 'id': f'DMA_Social_4_Consumer_and_end_users_32__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_4_Consumer_and_end_users_25'})
   if DMA_Social_4_Consumer_and_end_users_25 not in ['Yes', 'Partly']:
     DMA_Social_4_Consumer_and_end_users_26.clear()
 

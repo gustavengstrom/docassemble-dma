@@ -6,7 +6,7 @@ metadata:
   show login: False
   description: |
     DESCRIPTION 
-  revision_date: 2024-09-03
+  revision_date: 2024-09-04
 ---
 modules:
   - .post
@@ -85,7 +85,7 @@ code: |
   for index, indicator in enumerate(DMA_Social_2_Workers_in_the_value_chain_2):
     if not indicator.attribute_defined('DMA_Social_2_Workers_in_the_value_chain_3'):
       indicator.DMA_Social_2_Workers_in_the_value_chain_3 = '_n/a_'
-    survey_data.append({'name': 'Please provide a short description of the negative impact on workers in the value chain.', 'value': DMA_Social_2_Workers_in_the_value_chain_1 if DMA_Social_2_Workers_in_the_value_chain_1!='None' else '_n/a_', 'id': f'DMA_Social_2_Workers_in_the_value_chain_3__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_1'})
+    survey_data.append({'name': 'Please provide a short description of the negative impact on workers in the value chain.', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_3, 'id': f'DMA_Social_2_Workers_in_the_value_chain_3__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_1'})
     if not indicator.attribute_defined('DMA_Social_2_Workers_in_the_value_chain_4'):
       indicator.DMA_Social_2_Workers_in_the_value_chain_4 = '_n/a_'
     survey_data.append({'name': 'Please share the scale of the impact on workers in the value chain.', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_4 if indicator.DMA_Social_2_Workers_in_the_value_chain_4!='None' else '_n/a_', 'id': f'DMA_Social_2_Workers_in_the_value_chain_4__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_1'})
@@ -103,7 +103,7 @@ code: |
     survey_data.append({'name': 'Please share the time horizon of the impact on workers in the value chain.', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_8 if indicator.DMA_Social_2_Workers_in_the_value_chain_8!='None' else '_n/a_', 'id': f'DMA_Social_2_Workers_in_the_value_chain_8__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'Short-Term/Medium-Term/Long-Term', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_1'})
     if not indicator.attribute_defined('DMA_Social_2_Workers_in_the_value_chain_9'):
       indicator.DMA_Social_2_Workers_in_the_value_chain_9 = '_n/a_'
-    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_8 if indicator.DMA_Social_2_Workers_in_the_value_chain_8!='None' else '_n/a_', 'id': f'DMA_Social_2_Workers_in_the_value_chain_9__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_1'})
+    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_9, 'id': f'DMA_Social_2_Workers_in_the_value_chain_9__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_1'})
   if DMA_Social_2_Workers_in_the_value_chain_1 not in ['Yes', 'Partly']:
     DMA_Social_2_Workers_in_the_value_chain_2.clear()
   survey_data.append({'name': 'Has the undertaking identified positive impacts concerning workers in the value chain?', 'value': DMA_Social_2_Workers_in_the_value_chain_10 if DMA_Social_2_Workers_in_the_value_chain_10!='None' else '_n/a_', 'id': 'DMA_Social_2_Workers_in_the_value_chain_10', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified positive impacts on workers in the value chain.', 'dynamic_condition_criteria': 'Yes/Partly'})
@@ -117,7 +117,7 @@ code: |
   for index, indicator in enumerate(DMA_Social_2_Workers_in_the_value_chain_11):
     if not indicator.attribute_defined('DMA_Social_2_Workers_in_the_value_chain_12'):
       indicator.DMA_Social_2_Workers_in_the_value_chain_12 = '_n/a_'
-    survey_data.append({'name': 'Please provide a short description of the positive impact on workers in the value chain.', 'value': DMA_Social_2_Workers_in_the_value_chain_10 if DMA_Social_2_Workers_in_the_value_chain_10!='None' else '_n/a_', 'id': f'DMA_Social_2_Workers_in_the_value_chain_12__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_10'})
+    survey_data.append({'name': 'Please provide a short description of the positive impact on workers in the value chain.', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_12, 'id': f'DMA_Social_2_Workers_in_the_value_chain_12__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_10'})
     if not indicator.attribute_defined('DMA_Social_2_Workers_in_the_value_chain_13'):
       indicator.DMA_Social_2_Workers_in_the_value_chain_13 = '_n/a_'
     survey_data.append({'name': 'Please share the scale of the impact on workers in the value chain.', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_13 if indicator.DMA_Social_2_Workers_in_the_value_chain_13!='None' else '_n/a_', 'id': f'DMA_Social_2_Workers_in_the_value_chain_13__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_10'})
@@ -129,7 +129,7 @@ code: |
     survey_data.append({'name': 'Please share the likelihood of the impact on workers in the value chain.', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_15 if indicator.DMA_Social_2_Workers_in_the_value_chain_15!='None' else '_n/a_', 'id': f'DMA_Social_2_Workers_in_the_value_chain_15__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_10'})
     if not indicator.attribute_defined('DMA_Social_2_Workers_in_the_value_chain_16'):
       indicator.DMA_Social_2_Workers_in_the_value_chain_16 = '_n/a_'
-    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_15 if indicator.DMA_Social_2_Workers_in_the_value_chain_15!='None' else '_n/a_', 'id': f'DMA_Social_2_Workers_in_the_value_chain_16__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_10'})
+    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_16, 'id': f'DMA_Social_2_Workers_in_the_value_chain_16__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_10'})
   if DMA_Social_2_Workers_in_the_value_chain_10 not in ['Yes', 'Partly']:
     DMA_Social_2_Workers_in_the_value_chain_11.clear()
   survey_data.append({'name': 'Has the undertaking identified risks and opportunities concerning workers in the value chain?', 'value': DMA_Social_2_Workers_in_the_value_chain_17 if DMA_Social_2_Workers_in_the_value_chain_17!='None' else '_n/a_', 'id': 'DMA_Social_2_Workers_in_the_value_chain_17', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk concerning workers in the value chain.', 'dynamic_condition_criteria': 'Yes/Partly'})
@@ -143,7 +143,7 @@ code: |
   for index, indicator in enumerate(DMA_Social_2_Workers_in_the_value_chain_18):
     if not indicator.attribute_defined('DMA_Social_2_Workers_in_the_value_chain_19'):
       indicator.DMA_Social_2_Workers_in_the_value_chain_19 = '_n/a_'
-    survey_data.append({'name': 'Please provide a short description of the risk.', 'value': DMA_Social_2_Workers_in_the_value_chain_17 if DMA_Social_2_Workers_in_the_value_chain_17!='None' else '_n/a_', 'id': f'DMA_Social_2_Workers_in_the_value_chain_19__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_17'})
+    survey_data.append({'name': 'Please provide a short description of the risk.', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_19, 'id': f'DMA_Social_2_Workers_in_the_value_chain_19__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_17'})
     if not indicator.attribute_defined('DMA_Social_2_Workers_in_the_value_chain_20'):
       indicator.DMA_Social_2_Workers_in_the_value_chain_20 = '_n/a_'
     survey_data.append({'name': 'Please share the likelihood of occurrence for the risk.', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_20 if indicator.DMA_Social_2_Workers_in_the_value_chain_20!='None' else '_n/a_', 'id': f'DMA_Social_2_Workers_in_the_value_chain_20__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_17'})
@@ -158,7 +158,7 @@ code: |
     survey_data.append({'name': 'Please share the potential magnitude of effects in the long term.', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_23 if indicator.DMA_Social_2_Workers_in_the_value_chain_23!='None' else '_n/a_', 'id': f'DMA_Social_2_Workers_in_the_value_chain_23__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_17'})
     if not indicator.attribute_defined('DMA_Social_2_Workers_in_the_value_chain_24'):
       indicator.DMA_Social_2_Workers_in_the_value_chain_24 = '_n/a_'
-    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_23 if indicator.DMA_Social_2_Workers_in_the_value_chain_23!='None' else '_n/a_', 'id': f'DMA_Social_2_Workers_in_the_value_chain_24__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_17'})
+    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_24, 'id': f'DMA_Social_2_Workers_in_the_value_chain_24__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_17'})
   if DMA_Social_2_Workers_in_the_value_chain_17 not in ['Yes', 'Partly']:
     DMA_Social_2_Workers_in_the_value_chain_18.clear()
   survey_data.append({'name': 'Has the undertaking identified opportunities concerning workers in the value chain?', 'value': DMA_Social_2_Workers_in_the_value_chain_25 if DMA_Social_2_Workers_in_the_value_chain_25!='None' else '_n/a_', 'id': 'DMA_Social_2_Workers_in_the_value_chain_25', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified opportunity concerning workers in the value chain.', 'dynamic_condition_criteria': 'Yes/Partly'})
@@ -172,7 +172,7 @@ code: |
   for index, indicator in enumerate(DMA_Social_2_Workers_in_the_value_chain_26):
     if not indicator.attribute_defined('DMA_Social_2_Workers_in_the_value_chain_27'):
       indicator.DMA_Social_2_Workers_in_the_value_chain_27 = '_n/a_'
-    survey_data.append({'name': 'Please provide a short description of the opportunity.', 'value': DMA_Social_2_Workers_in_the_value_chain_25 if DMA_Social_2_Workers_in_the_value_chain_25!='None' else '_n/a_', 'id': f'DMA_Social_2_Workers_in_the_value_chain_27__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_25'})
+    survey_data.append({'name': 'Please provide a short description of the opportunity.', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_27, 'id': f'DMA_Social_2_Workers_in_the_value_chain_27__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_25'})
     if not indicator.attribute_defined('DMA_Social_2_Workers_in_the_value_chain_28'):
       indicator.DMA_Social_2_Workers_in_the_value_chain_28 = '_n/a_'
     survey_data.append({'name': 'Please share the likelihood of occurrence for the opportunity.', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_28 if indicator.DMA_Social_2_Workers_in_the_value_chain_28!='None' else '_n/a_', 'id': f'DMA_Social_2_Workers_in_the_value_chain_28__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_25'})
@@ -187,7 +187,7 @@ code: |
     survey_data.append({'name': 'Please share the potential magnitude of effects in the long term.', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_31 if indicator.DMA_Social_2_Workers_in_the_value_chain_31!='None' else '_n/a_', 'id': f'DMA_Social_2_Workers_in_the_value_chain_31__DQ{index}', 'tag': indicator.name.text, 'answer_type': '1/2/3/4/5/Not Sure', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_25'})
     if not indicator.attribute_defined('DMA_Social_2_Workers_in_the_value_chain_32'):
       indicator.DMA_Social_2_Workers_in_the_value_chain_32 = '_n/a_'
-    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_31 if indicator.DMA_Social_2_Workers_in_the_value_chain_31!='None' else '_n/a_', 'id': f'DMA_Social_2_Workers_in_the_value_chain_32__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_25'})
+    survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_2_Workers_in_the_value_chain_32, 'id': f'DMA_Social_2_Workers_in_the_value_chain_32__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_2_Workers_in_the_value_chain_25'})
   if DMA_Social_2_Workers_in_the_value_chain_25 not in ['Yes', 'Partly']:
     DMA_Social_2_Workers_in_the_value_chain_26.clear()
 
