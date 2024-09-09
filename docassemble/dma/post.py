@@ -41,7 +41,7 @@ def validate_session(data):
     try:
         json_data = json.dumps(data)
         url = f"https://{django_hostname}/webhooks/validate-da-session/"
-        log(f"Validating data st: {url}")
+        log(f"Validating data at: {url}")
         # "http://django:8000/webhooks/validate-da-session/"
         response = requests.post(
             url,

@@ -6,7 +6,7 @@ metadata:
   show login: False
   description: |
     DESCRIPTION 
-  revision_date: 2024-09-04
+  revision_date: 2024-09-09
 ---
 modules:
   - .post
@@ -69,7 +69,7 @@ code: |
 
   intro_screen
   survey_data = []
-  survey_data.append({'name': 'Has the undertaking identified negative impacts relating to climate change?', 'value': DMA_Environmental_1_Climate_Change_1 if DMA_Environmental_1_Climate_Change_1!='None' else '_n/a_', 'id': 'DMA_Environmental_1_Climate_Change_1', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified negative impacts on climate change.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified negative impacts relating to climate change?', 'value': DMA_Environmental_1_Climate_Change_1 if DMA_Environmental_1_Climate_Change_1!='None' else '', 'id': 'DMA_Environmental_1_Climate_Change_1', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified negative impacts on climate change.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Environmental_1_Climate_Change_1 in ['Yes', 'Partly']:
     DMA_Environmental_1_Climate_Change_2.gather()
   else:
@@ -101,7 +101,7 @@ code: |
     survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Environmental_1_Climate_Change_9, 'id': f'DMA_Environmental_1_Climate_Change_9__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Environmental_1_Climate_Change_1'})
   if DMA_Environmental_1_Climate_Change_1 not in ['Yes', 'Partly']:
     DMA_Environmental_1_Climate_Change_2.clear()
-  survey_data.append({'name': 'Has the undertaking identified positive impacts concerning climate change?', 'value': DMA_Environmental_1_Climate_Change_10 if DMA_Environmental_1_Climate_Change_10!='None' else '_n/a_', 'id': 'DMA_Environmental_1_Climate_Change_10', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified positive impact on climate change.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified positive impacts concerning climate change?', 'value': DMA_Environmental_1_Climate_Change_10 if DMA_Environmental_1_Climate_Change_10!='None' else '', 'id': 'DMA_Environmental_1_Climate_Change_10', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified positive impact on climate change.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Environmental_1_Climate_Change_10 in ['Yes', 'Partly']:
     DMA_Environmental_1_Climate_Change_11.gather()
   else:
@@ -127,7 +127,7 @@ code: |
     survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Environmental_1_Climate_Change_16, 'id': f'DMA_Environmental_1_Climate_Change_16__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Environmental_1_Climate_Change_10'})
   if DMA_Environmental_1_Climate_Change_10 not in ['Yes', 'Partly']:
     DMA_Environmental_1_Climate_Change_11.clear()
-  survey_data.append({'name': 'Has the undertaking identified risks concerning climate change?', 'value': DMA_Environmental_1_Climate_Change_17 if DMA_Environmental_1_Climate_Change_17!='None' else '_n/a_', 'id': 'DMA_Environmental_1_Climate_Change_17', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk concerning climate change.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified risks concerning climate change?', 'value': DMA_Environmental_1_Climate_Change_17 if DMA_Environmental_1_Climate_Change_17!='None' else '', 'id': 'DMA_Environmental_1_Climate_Change_17', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk concerning climate change.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Environmental_1_Climate_Change_17 in ['Yes', 'Partly']:
     DMA_Environmental_1_Climate_Change_18.gather()
   else:
@@ -156,7 +156,7 @@ code: |
     survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Environmental_1_Climate_Change_24, 'id': f'DMA_Environmental_1_Climate_Change_24__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Environmental_1_Climate_Change_17'})
   if DMA_Environmental_1_Climate_Change_17 not in ['Yes', 'Partly']:
     DMA_Environmental_1_Climate_Change_18.clear()
-  survey_data.append({'name': 'Has the undertaking identified opportunities concerning climate change?', 'value': DMA_Environmental_1_Climate_Change_25 if DMA_Environmental_1_Climate_Change_25!='None' else '_n/a_', 'id': 'DMA_Environmental_1_Climate_Change_25', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified opportunity concerning climate change.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified opportunities concerning climate change?', 'value': DMA_Environmental_1_Climate_Change_25 if DMA_Environmental_1_Climate_Change_25!='None' else '', 'id': 'DMA_Environmental_1_Climate_Change_25', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified opportunity concerning climate change.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Environmental_1_Climate_Change_25 in ['Yes', 'Partly']:
     DMA_Environmental_1_Climate_Change_26.gather()
   else:
@@ -207,7 +207,7 @@ code: |
 
   survey_data_ids = [d['id'] for d in survey_data]
   survey_analytics = []
-  survey_analytics.append({"id": "sc_id","name": "score_coverage", "values": [dyn_id for dyn_id in survey_data_ids if any([sa_id in dyn_id for sa_id in ['DMA_Environmental_1_Climate_Change_1', 'DMA_Environmental_1_Climate_Change_4', 'DMA_Environmental_1_Climate_Change_5', 'DMA_Environmental_1_Climate_Change_6', 'DMA_Environmental_1_Climate_Change_7', 'DMA_Environmental_1_Climate_Change_8', 'DMA_Environmental_1_Climate_Change_10', 'DMA_Environmental_1_Climate_Change_13', 'DMA_Environmental_1_Climate_Change_14', 'DMA_Environmental_1_Climate_Change_15', 'DMA_Environmental_1_Climate_Change_17', 'DMA_Environmental_1_Climate_Change_20', 'DMA_Environmental_1_Climate_Change_21', 'DMA_Environmental_1_Climate_Change_22', 'DMA_Environmental_1_Climate_Change_23', 'DMA_Environmental_1_Climate_Change_25', 'DMA_Environmental_1_Climate_Change_28', 'DMA_Environmental_1_Climate_Change_29', 'DMA_Environmental_1_Climate_Change_30', 'DMA_Environmental_1_Climate_Change_31']])]})
+  survey_analytics.append({"id": "sc_id","name": "score_coverage", "values": [dyn_id for dyn_id in survey_data_ids if any([sa_id in dyn_id for sa_id in ['DMA_Environmental_1_Climate_Change_1', 'DMA_Environmental_1_Climate_Change_2', 'DMA_Environmental_1_Climate_Change_3', 'DMA_Environmental_1_Climate_Change_4', 'DMA_Environmental_1_Climate_Change_5', 'DMA_Environmental_1_Climate_Change_6', 'DMA_Environmental_1_Climate_Change_7', 'DMA_Environmental_1_Climate_Change_8', 'DMA_Environmental_1_Climate_Change_10', 'DMA_Environmental_1_Climate_Change_11', 'DMA_Environmental_1_Climate_Change_12', 'DMA_Environmental_1_Climate_Change_13', 'DMA_Environmental_1_Climate_Change_14', 'DMA_Environmental_1_Climate_Change_15', 'DMA_Environmental_1_Climate_Change_17', 'DMA_Environmental_1_Climate_Change_18', 'DMA_Environmental_1_Climate_Change_19', 'DMA_Environmental_1_Climate_Change_20', 'DMA_Environmental_1_Climate_Change_21', 'DMA_Environmental_1_Climate_Change_22', 'DMA_Environmental_1_Climate_Change_23', 'DMA_Environmental_1_Climate_Change_25', 'DMA_Environmental_1_Climate_Change_26', 'DMA_Environmental_1_Climate_Change_27', 'DMA_Environmental_1_Climate_Change_28', 'DMA_Environmental_1_Climate_Change_29', 'DMA_Environmental_1_Climate_Change_30', 'DMA_Environmental_1_Climate_Change_31']])]})
   survey_analytics.append({"id": "DMA_Environmental_1_Climate_Change_F1", "name": "Materiality assessment for negative impacts", "values": ["DMA_Environmental_1_Climate_Change_4", "DMA_Environmental_1_Climate_Change_5", "DMA_Environmental_1_Climate_Change_6", "DMA_Environmental_1_Climate_Change_7", "DMA_Environmental_1_Climate_Change_8", "DMA_Environmental_1_Climate_Change_9"], "labels": ["Scale", "Scope", "Irremediability", "Likelihood", "Time-horizon", "Elaboration"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER", "OTHER", "OPEN"]})
   survey_analytics.append({"id": "DMA_Environmental_1_Climate_Change_F2", "name": "Materiality assessment for positive impacts", "values": ["DMA_Environmental_1_Climate_Change_13", "DMA_Environmental_1_Climate_Change_14", "DMA_Environmental_1_Climate_Change_15", "DMA_Environmental_1_Climate_Change_16"], "labels": ["Scale", "Scope", "Likelihood", "Elaboration"], "dtypes": ["OTHER", "OTHER", "OTHER", "OPEN"]})
   survey_analytics.append({"id": "DMA_Environmental_1_Climate_Change_F3", "name": "Materiality assessment for risks (financial materiality)", "values": ["DMA_Environmental_1_Climate_Change_20", "DMA_Environmental_1_Climate_Change_21", "DMA_Environmental_1_Climate_Change_22", "DMA_Environmental_1_Climate_Change_23", "DMA_Environmental_1_Climate_Change_24"], "labels": ["Likelihood", "Short Term Magnitude", "Medium Term Magnitude", "Long Term Magnitude", "Elaboration"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER", "OPEN"]})

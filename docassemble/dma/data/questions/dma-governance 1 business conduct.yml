@@ -6,7 +6,7 @@ metadata:
   show login: False
   description: |
     DESCRIPTION 
-  revision_date: 2024-09-04
+  revision_date: 2024-09-09
 ---
 modules:
   - .post
@@ -74,7 +74,7 @@ code: |
 
   intro_screen
   survey_data = []
-  survey_data.append({'name': 'Has the undertaking identified negative impacts on governance matters?', 'value': DMA_Governance_1_Business_conduct_1 if DMA_Governance_1_Business_conduct_1!='None' else '_n/a_', 'id': 'DMA_Governance_1_Business_conduct_1', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified negative impacts on governance matters.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified negative impacts on governance matters?', 'value': DMA_Governance_1_Business_conduct_1 if DMA_Governance_1_Business_conduct_1!='None' else '', 'id': 'DMA_Governance_1_Business_conduct_1', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified negative impacts on governance matters.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Governance_1_Business_conduct_1 in ['Yes', 'Partly']:
     DMA_Governance_1_Business_conduct_2.gather()
   else:
@@ -106,7 +106,7 @@ code: |
     survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Governance_1_Business_conduct_9, 'id': f'DMA_Governance_1_Business_conduct_9__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_1'})
   if DMA_Governance_1_Business_conduct_1 not in ['Yes', 'Partly']:
     DMA_Governance_1_Business_conduct_2.clear()
-  survey_data.append({'name': 'Has the undertaking identified positive impacts concerning governance matters?', 'value': DMA_Governance_1_Business_conduct_10 if DMA_Governance_1_Business_conduct_10!='None' else '_n/a_', 'id': 'DMA_Governance_1_Business_conduct_10', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified positive impacts on governance matters.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified positive impacts concerning governance matters?', 'value': DMA_Governance_1_Business_conduct_10 if DMA_Governance_1_Business_conduct_10!='None' else '', 'id': 'DMA_Governance_1_Business_conduct_10', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified positive impacts on governance matters.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Governance_1_Business_conduct_10 in ['Yes', 'Partly']:
     DMA_Governance_1_Business_conduct_11.gather()
   else:
@@ -132,7 +132,7 @@ code: |
     survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Governance_1_Business_conduct_16, 'id': f'DMA_Governance_1_Business_conduct_16__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_10'})
   if DMA_Governance_1_Business_conduct_10 not in ['Yes', 'Partly']:
     DMA_Governance_1_Business_conduct_11.clear()
-  survey_data.append({'name': 'Has the undertaking identified risks and opportunities concerning concerning governance?', 'value': DMA_Governance_1_Business_conduct_17 if DMA_Governance_1_Business_conduct_17!='None' else '_n/a_', 'id': 'DMA_Governance_1_Business_conduct_17', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk and opportunity concerning governance.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified risks and opportunities concerning concerning governance?', 'value': DMA_Governance_1_Business_conduct_17 if DMA_Governance_1_Business_conduct_17!='None' else '', 'id': 'DMA_Governance_1_Business_conduct_17', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk and opportunity concerning governance.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Governance_1_Business_conduct_17 in ['Yes', 'Partly']:
     DMA_Governance_1_Business_conduct_18.gather()
   else:
@@ -161,7 +161,7 @@ code: |
     survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Governance_1_Business_conduct_24, 'id': f'DMA_Governance_1_Business_conduct_24__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Governance_1_Business_conduct_17'})
   if DMA_Governance_1_Business_conduct_17 not in ['Yes', 'Partly']:
     DMA_Governance_1_Business_conduct_18.clear()
-  survey_data.append({'name': 'Has the undertaking identified risks and opportunities concerning concerning governance?', 'value': DMA_Governance_1_Business_conduct_25 if DMA_Governance_1_Business_conduct_25!='None' else '_n/a_', 'id': 'DMA_Governance_1_Business_conduct_25', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk and opportunity concerning governance.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified risks and opportunities concerning concerning governance?', 'value': DMA_Governance_1_Business_conduct_25 if DMA_Governance_1_Business_conduct_25!='None' else '', 'id': 'DMA_Governance_1_Business_conduct_25', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk and opportunity concerning governance.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Governance_1_Business_conduct_25 in ['Yes', 'Partly']:
     DMA_Governance_1_Business_conduct_26.gather()
   else:
@@ -212,7 +212,7 @@ code: |
 
   survey_data_ids = [d['id'] for d in survey_data]
   survey_analytics = []
-  survey_analytics.append({"id": "sc_id","name": "score_coverage", "values": [dyn_id for dyn_id in survey_data_ids if any([sa_id in dyn_id for sa_id in ['DMA_Governance_1_Business_conduct_1', 'DMA_Governance_1_Business_conduct_4', 'DMA_Governance_1_Business_conduct_5', 'DMA_Governance_1_Business_conduct_6', 'DMA_Governance_1_Business_conduct_7', 'DMA_Governance_1_Business_conduct_8', 'DMA_Governance_1_Business_conduct_10', 'DMA_Governance_1_Business_conduct_13', 'DMA_Governance_1_Business_conduct_14', 'DMA_Governance_1_Business_conduct_15', 'DMA_Governance_1_Business_conduct_17', 'DMA_Governance_1_Business_conduct_20', 'DMA_Governance_1_Business_conduct_21', 'DMA_Governance_1_Business_conduct_22', 'DMA_Governance_1_Business_conduct_23', 'DMA_Governance_1_Business_conduct_25', 'DMA_Governance_1_Business_conduct_28', 'DMA_Governance_1_Business_conduct_29', 'DMA_Governance_1_Business_conduct_30', 'DMA_Governance_1_Business_conduct_31']])]})
+  survey_analytics.append({"id": "sc_id","name": "score_coverage", "values": [dyn_id for dyn_id in survey_data_ids if any([sa_id in dyn_id for sa_id in ['DMA_Governance_1_Business_conduct_1', 'DMA_Governance_1_Business_conduct_2', 'DMA_Governance_1_Business_conduct_3', 'DMA_Governance_1_Business_conduct_4', 'DMA_Governance_1_Business_conduct_5', 'DMA_Governance_1_Business_conduct_6', 'DMA_Governance_1_Business_conduct_7', 'DMA_Governance_1_Business_conduct_8', 'DMA_Governance_1_Business_conduct_10', 'DMA_Governance_1_Business_conduct_11', 'DMA_Governance_1_Business_conduct_12', 'DMA_Governance_1_Business_conduct_13', 'DMA_Governance_1_Business_conduct_14', 'DMA_Governance_1_Business_conduct_15', 'DMA_Governance_1_Business_conduct_17', 'DMA_Governance_1_Business_conduct_18', 'DMA_Governance_1_Business_conduct_19', 'DMA_Governance_1_Business_conduct_20', 'DMA_Governance_1_Business_conduct_21', 'DMA_Governance_1_Business_conduct_22', 'DMA_Governance_1_Business_conduct_23', 'DMA_Governance_1_Business_conduct_25', 'DMA_Governance_1_Business_conduct_26', 'DMA_Governance_1_Business_conduct_27', 'DMA_Governance_1_Business_conduct_28', 'DMA_Governance_1_Business_conduct_29', 'DMA_Governance_1_Business_conduct_30', 'DMA_Governance_1_Business_conduct_31']])]})
   survey_analytics.append({"id": "DMA_Governance_1_Business_conduct_F1", "name": "Materiality assessment for negative impacts", "values": ["DMA_Governance_1_Business_conduct_4", "DMA_Governance_1_Business_conduct_5", "DMA_Governance_1_Business_conduct_6", "DMA_Governance_1_Business_conduct_7", "DMA_Governance_1_Business_conduct_8", "DMA_Governance_1_Business_conduct_9"], "labels": ["Scale", "Scope", "Irremediability", "Likelihood", "Time-horizon", "Elaboration"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER", "OTHER", "OPEN"]})
   survey_analytics.append({"id": "DMA_Governance_1_Business_conduct_F2", "name": "Materiality assessment for positive impacts", "values": ["DMA_Governance_1_Business_conduct_13", "DMA_Governance_1_Business_conduct_14", "DMA_Governance_1_Business_conduct_15", "DMA_Governance_1_Business_conduct_16"], "labels": ["Scale", "Scope", "Likelihood", "Elaboration"], "dtypes": ["OTHER", "OTHER", "OTHER", "OPEN"]})
   survey_analytics.append({"id": "DMA_Governance_1_Business_conduct_F3", "name": "Materiality assessment for risks (financial materiality)", "values": ["DMA_Governance_1_Business_conduct_20", "DMA_Governance_1_Business_conduct_21", "DMA_Governance_1_Business_conduct_22", "DMA_Governance_1_Business_conduct_23", "DMA_Governance_1_Business_conduct_24"], "labels": ["Likelihood", "Short Term Magnitude", "Medium Term Magnitude", "Long Term Magnitude", "Elaboration"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER", "OPEN"]})

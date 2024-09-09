@@ -6,7 +6,7 @@ metadata:
   show login: False
   description: |
     DESCRIPTION 
-  revision_date: 2024-09-04
+  revision_date: 2024-09-09
 ---
 modules:
   - .post
@@ -69,7 +69,7 @@ code: |
 
   intro_screen
   survey_data = []
-  survey_data.append({'name': 'Has the undertaking identified negative impacts relating to pollution?', 'value': DMA_Environmental_2_Pollution_1 if DMA_Environmental_2_Pollution_1!='None' else '_n/a_', 'id': 'DMA_Environmental_2_Pollution_1', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified negative impacts on pollution.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified negative impacts relating to pollution?', 'value': DMA_Environmental_2_Pollution_1 if DMA_Environmental_2_Pollution_1!='None' else '', 'id': 'DMA_Environmental_2_Pollution_1', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified negative impacts on pollution.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Environmental_2_Pollution_1 in ['Yes', 'Partly']:
     DMA_Environmental_2_Pollution_2.gather()
   else:
@@ -101,7 +101,7 @@ code: |
     survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Environmental_2_Pollution_9, 'id': f'DMA_Environmental_2_Pollution_9__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Environmental_2_Pollution_1'})
   if DMA_Environmental_2_Pollution_1 not in ['Yes', 'Partly']:
     DMA_Environmental_2_Pollution_2.clear()
-  survey_data.append({'name': 'Has the undertaking identified positive impacts concerning pollution?', 'value': DMA_Environmental_2_Pollution_10 if DMA_Environmental_2_Pollution_10!='None' else '_n/a_', 'id': 'DMA_Environmental_2_Pollution_10', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified positive impact on pollution.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified positive impacts concerning pollution?', 'value': DMA_Environmental_2_Pollution_10 if DMA_Environmental_2_Pollution_10!='None' else '', 'id': 'DMA_Environmental_2_Pollution_10', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified positive impact on pollution.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Environmental_2_Pollution_10 in ['Yes', 'Partly']:
     DMA_Environmental_2_Pollution_11.gather()
   else:
@@ -127,7 +127,7 @@ code: |
     survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Environmental_2_Pollution_16, 'id': f'DMA_Environmental_2_Pollution_16__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Environmental_2_Pollution_10'})
   if DMA_Environmental_2_Pollution_10 not in ['Yes', 'Partly']:
     DMA_Environmental_2_Pollution_11.clear()
-  survey_data.append({'name': 'Has the undertaking identified risks concerning pollution?', 'value': DMA_Environmental_2_Pollution_17 if DMA_Environmental_2_Pollution_17!='None' else '_n/a_', 'id': 'DMA_Environmental_2_Pollution_17', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk concerning pollution.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified risks concerning pollution?', 'value': DMA_Environmental_2_Pollution_17 if DMA_Environmental_2_Pollution_17!='None' else '', 'id': 'DMA_Environmental_2_Pollution_17', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk concerning pollution.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Environmental_2_Pollution_17 in ['Yes', 'Partly']:
     DMA_Environmental_2_Pollution_18.gather()
   else:
@@ -156,7 +156,7 @@ code: |
     survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Environmental_2_Pollution_24, 'id': f'DMA_Environmental_2_Pollution_24__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Environmental_2_Pollution_17'})
   if DMA_Environmental_2_Pollution_17 not in ['Yes', 'Partly']:
     DMA_Environmental_2_Pollution_18.clear()
-  survey_data.append({'name': 'Has the undertaking identified opportunities concerning pollution?', 'value': DMA_Environmental_2_Pollution_25 if DMA_Environmental_2_Pollution_25!='None' else '_n/a_', 'id': 'DMA_Environmental_2_Pollution_25', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified opportunity concerning pollution.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified opportunities concerning pollution?', 'value': DMA_Environmental_2_Pollution_25 if DMA_Environmental_2_Pollution_25!='None' else '', 'id': 'DMA_Environmental_2_Pollution_25', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified opportunity concerning pollution.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Environmental_2_Pollution_25 in ['Yes', 'Partly']:
     DMA_Environmental_2_Pollution_26.gather()
   else:
@@ -207,7 +207,7 @@ code: |
 
   survey_data_ids = [d['id'] for d in survey_data]
   survey_analytics = []
-  survey_analytics.append({"id": "sc_id","name": "score_coverage", "values": [dyn_id for dyn_id in survey_data_ids if any([sa_id in dyn_id for sa_id in ['DMA_Environmental_2_Pollution_1', 'DMA_Environmental_2_Pollution_4', 'DMA_Environmental_2_Pollution_5', 'DMA_Environmental_2_Pollution_6', 'DMA_Environmental_2_Pollution_7', 'DMA_Environmental_2_Pollution_8', 'DMA_Environmental_2_Pollution_10', 'DMA_Environmental_2_Pollution_13', 'DMA_Environmental_2_Pollution_14', 'DMA_Environmental_2_Pollution_15', 'DMA_Environmental_2_Pollution_17', 'DMA_Environmental_2_Pollution_20', 'DMA_Environmental_2_Pollution_21', 'DMA_Environmental_2_Pollution_22', 'DMA_Environmental_2_Pollution_23', 'DMA_Environmental_2_Pollution_25', 'DMA_Environmental_2_Pollution_28', 'DMA_Environmental_2_Pollution_29', 'DMA_Environmental_2_Pollution_30', 'DMA_Environmental_2_Pollution_31']])]})
+  survey_analytics.append({"id": "sc_id","name": "score_coverage", "values": [dyn_id for dyn_id in survey_data_ids if any([sa_id in dyn_id for sa_id in ['DMA_Environmental_2_Pollution_1', 'DMA_Environmental_2_Pollution_2', 'DMA_Environmental_2_Pollution_3', 'DMA_Environmental_2_Pollution_4', 'DMA_Environmental_2_Pollution_5', 'DMA_Environmental_2_Pollution_6', 'DMA_Environmental_2_Pollution_7', 'DMA_Environmental_2_Pollution_8', 'DMA_Environmental_2_Pollution_10', 'DMA_Environmental_2_Pollution_11', 'DMA_Environmental_2_Pollution_12', 'DMA_Environmental_2_Pollution_13', 'DMA_Environmental_2_Pollution_14', 'DMA_Environmental_2_Pollution_15', 'DMA_Environmental_2_Pollution_17', 'DMA_Environmental_2_Pollution_18', 'DMA_Environmental_2_Pollution_19', 'DMA_Environmental_2_Pollution_20', 'DMA_Environmental_2_Pollution_21', 'DMA_Environmental_2_Pollution_22', 'DMA_Environmental_2_Pollution_23', 'DMA_Environmental_2_Pollution_25', 'DMA_Environmental_2_Pollution_26', 'DMA_Environmental_2_Pollution_27', 'DMA_Environmental_2_Pollution_28', 'DMA_Environmental_2_Pollution_29', 'DMA_Environmental_2_Pollution_30', 'DMA_Environmental_2_Pollution_31']])]})
   survey_analytics.append({"id": "DMA_Environmental_2_Pollution_F1", "name": "Materiality assessment for negative impacts", "values": ["DMA_Environmental_2_Pollution_4", "DMA_Environmental_2_Pollution_5", "DMA_Environmental_2_Pollution_6", "DMA_Environmental_2_Pollution_7", "DMA_Environmental_2_Pollution_8", "DMA_Environmental_2_Pollution_9"], "labels": ["Scale", "Scope", "Irremediability", "Likelihood", "Time-horizon", "Elaboration"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER", "OTHER", "OPEN"]})
   survey_analytics.append({"id": "DMA_Environmental_2_Pollution_F2", "name": "Materiality assessment for positive impacts", "values": ["DMA_Environmental_2_Pollution_13", "DMA_Environmental_2_Pollution_14", "DMA_Environmental_2_Pollution_15", "DMA_Environmental_2_Pollution_16"], "labels": ["Scale", "Scope", "Likelihood", "Elaboration"], "dtypes": ["OTHER", "OTHER", "OTHER", "OPEN"]})
   survey_analytics.append({"id": "DMA_Environmental_2_Pollution_F3", "name": "Materiality assessment for risks and opportunities (financial materiality)", "values": ["DMA_Environmental_2_Pollution_20", "DMA_Environmental_2_Pollution_21", "DMA_Environmental_2_Pollution_22", "DMA_Environmental_2_Pollution_23", "DMA_Environmental_2_Pollution_24"], "labels": ["Likelihood", "Short Term Magnitude", "Medium Term Magnitude", "Long Term Magnitude", "Elaboration"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER", "OPEN"]})

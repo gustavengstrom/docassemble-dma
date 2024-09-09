@@ -6,7 +6,7 @@ metadata:
   show login: False
   description: |
     DESCRIPTION 
-  revision_date: 2024-09-04
+  revision_date: 2024-09-09
 ---
 modules:
   - .post
@@ -74,7 +74,7 @@ code: |
 
   intro_screen
   survey_data = []
-  survey_data.append({'name': 'Has the undertaking identified negative impacts on affected communities?', 'value': DMA_Social_3_Affected_communities_1 if DMA_Social_3_Affected_communities_1!='None' else '_n/a_', 'id': 'DMA_Social_3_Affected_communities_1', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified negative impacts on affected communities.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified negative impacts on affected communities?', 'value': DMA_Social_3_Affected_communities_1 if DMA_Social_3_Affected_communities_1!='None' else '', 'id': 'DMA_Social_3_Affected_communities_1', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified negative impacts on affected communities.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Social_3_Affected_communities_1 in ['Yes', 'Partly']:
     DMA_Social_3_Affected_communities_2.gather()
   else:
@@ -106,7 +106,7 @@ code: |
     survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_3_Affected_communities_9, 'id': f'DMA_Social_3_Affected_communities_9__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_3_Affected_communities_1'})
   if DMA_Social_3_Affected_communities_1 not in ['Yes', 'Partly']:
     DMA_Social_3_Affected_communities_2.clear()
-  survey_data.append({'name': 'Has the undertaking identified positive impacts concerning affected communities?', 'value': DMA_Social_3_Affected_communities_10 if DMA_Social_3_Affected_communities_10!='None' else '_n/a_', 'id': 'DMA_Social_3_Affected_communities_10', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified positive impacts on affected communities.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified positive impacts concerning affected communities?', 'value': DMA_Social_3_Affected_communities_10 if DMA_Social_3_Affected_communities_10!='None' else '', 'id': 'DMA_Social_3_Affected_communities_10', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified positive impacts on affected communities.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Social_3_Affected_communities_10 in ['Yes', 'Partly']:
     DMA_Social_3_Affected_communities_11.gather()
   else:
@@ -132,7 +132,7 @@ code: |
     survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_3_Affected_communities_16, 'id': f'DMA_Social_3_Affected_communities_16__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_3_Affected_communities_10'})
   if DMA_Social_3_Affected_communities_10 not in ['Yes', 'Partly']:
     DMA_Social_3_Affected_communities_11.clear()
-  survey_data.append({'name': 'Has the undertaking identified risks concerning affected communities?', 'value': DMA_Social_3_Affected_communities_17 if DMA_Social_3_Affected_communities_17!='None' else '_n/a_', 'id': 'DMA_Social_3_Affected_communities_17', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk concerning affected communities.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified risks concerning affected communities?', 'value': DMA_Social_3_Affected_communities_17 if DMA_Social_3_Affected_communities_17!='None' else '', 'id': 'DMA_Social_3_Affected_communities_17', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified risk concerning affected communities.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Social_3_Affected_communities_17 in ['Yes', 'Partly']:
     DMA_Social_3_Affected_communities_18.gather()
   else:
@@ -161,7 +161,7 @@ code: |
     survey_data.append({'name': 'Please give a short elaboration on your assessment', 'value': indicator.DMA_Social_3_Affected_communities_24, 'id': f'DMA_Social_3_Affected_communities_24__DQ{index}', 'tag': indicator.name.text, 'answer_type': 'OPEN', 'condition': 'DMA_Social_3_Affected_communities_17'})
   if DMA_Social_3_Affected_communities_17 not in ['Yes', 'Partly']:
     DMA_Social_3_Affected_communities_18.clear()
-  survey_data.append({'name': 'Has the undertaking identified opportunities concerning affected communities?', 'value': DMA_Social_3_Affected_communities_25 if DMA_Social_3_Affected_communities_25!='None' else '_n/a_', 'id': 'DMA_Social_3_Affected_communities_25', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified opportunity concerning affected communities.', 'dynamic_condition_criteria': 'Yes/Partly'})
+  survey_data.append({'name': 'Has the undertaking identified opportunities concerning affected communities?', 'value': DMA_Social_3_Affected_communities_25 if DMA_Social_3_Affected_communities_25!='None' else '', 'id': 'DMA_Social_3_Affected_communities_25', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for an identified opportunity concerning affected communities.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Social_3_Affected_communities_25 in ['Yes', 'Partly']:
     DMA_Social_3_Affected_communities_26.gather()
   else:
@@ -212,7 +212,7 @@ code: |
 
   survey_data_ids = [d['id'] for d in survey_data]
   survey_analytics = []
-  survey_analytics.append({"id": "sc_id","name": "score_coverage", "values": [dyn_id for dyn_id in survey_data_ids if any([sa_id in dyn_id for sa_id in ['DMA_Social_3_Affected_communities_1', 'DMA_Social_3_Affected_communities_4', 'DMA_Social_3_Affected_communities_5', 'DMA_Social_3_Affected_communities_6', 'DMA_Social_3_Affected_communities_7', 'DMA_Social_3_Affected_communities_8', 'DMA_Social_3_Affected_communities_10', 'DMA_Social_3_Affected_communities_13', 'DMA_Social_3_Affected_communities_14', 'DMA_Social_3_Affected_communities_15', 'DMA_Social_3_Affected_communities_17', 'DMA_Social_3_Affected_communities_20', 'DMA_Social_3_Affected_communities_21', 'DMA_Social_3_Affected_communities_22', 'DMA_Social_3_Affected_communities_23', 'DMA_Social_3_Affected_communities_25', 'DMA_Social_3_Affected_communities_28', 'DMA_Social_3_Affected_communities_29', 'DMA_Social_3_Affected_communities_30', 'DMA_Social_3_Affected_communities_31']])]})
+  survey_analytics.append({"id": "sc_id","name": "score_coverage", "values": [dyn_id for dyn_id in survey_data_ids if any([sa_id in dyn_id for sa_id in ['DMA_Social_3_Affected_communities_1', 'DMA_Social_3_Affected_communities_2', 'DMA_Social_3_Affected_communities_3', 'DMA_Social_3_Affected_communities_4', 'DMA_Social_3_Affected_communities_5', 'DMA_Social_3_Affected_communities_6', 'DMA_Social_3_Affected_communities_7', 'DMA_Social_3_Affected_communities_8', 'DMA_Social_3_Affected_communities_10', 'DMA_Social_3_Affected_communities_11', 'DMA_Social_3_Affected_communities_12', 'DMA_Social_3_Affected_communities_13', 'DMA_Social_3_Affected_communities_14', 'DMA_Social_3_Affected_communities_15', 'DMA_Social_3_Affected_communities_17', 'DMA_Social_3_Affected_communities_18', 'DMA_Social_3_Affected_communities_19', 'DMA_Social_3_Affected_communities_20', 'DMA_Social_3_Affected_communities_21', 'DMA_Social_3_Affected_communities_22', 'DMA_Social_3_Affected_communities_23', 'DMA_Social_3_Affected_communities_25', 'DMA_Social_3_Affected_communities_26', 'DMA_Social_3_Affected_communities_27', 'DMA_Social_3_Affected_communities_28', 'DMA_Social_3_Affected_communities_29', 'DMA_Social_3_Affected_communities_30', 'DMA_Social_3_Affected_communities_31']])]})
   survey_analytics.append({"id": "DMA_Social_3_Affected_communities_F1", "name": "Materiality assessment for negative impacts", "values": ["DMA_Social_3_Affected_communities_4", "DMA_Social_3_Affected_communities_5", "DMA_Social_3_Affected_communities_6", "DMA_Social_3_Affected_communities_7", "DMA_Social_3_Affected_communities_8", "DMA_Social_3_Affected_communities_9"], "labels": ["Scale", "Scope", "Irremediability", "Likelihood", "Time-horizon", "Elaboration"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER", "OTHER", "OPEN"]})
   survey_analytics.append({"id": "DMA_Social_3_Affected_communities_F2", "name": "Materiality assessment for positive impacts", "values": ["DMA_Social_3_Affected_communities_13", "DMA_Social_3_Affected_communities_14", "DMA_Social_3_Affected_communities_15", "DMA_Social_3_Affected_communities_16"], "labels": ["Scale", "Scope", "Likelihood", "Elaboration"], "dtypes": ["OTHER", "OTHER", "OTHER", "OPEN"]})
   survey_analytics.append({"id": "DMA_Social_3_Affected_communities_F3", "name": "Materiality assessment for risks (financial materiality)", "values": ["DMA_Social_3_Affected_communities_20", "DMA_Social_3_Affected_communities_21", "DMA_Social_3_Affected_communities_22", "DMA_Social_3_Affected_communities_23", "DMA_Social_3_Affected_communities_24"], "labels": ["Likelihood", "Short Term Magnitude", "Medium Term Magnitude", "Long Term Magnitude", "Elaboration"], "dtypes": ["OTHER", "OTHER", "OTHER", "OTHER", "OPEN"]})
