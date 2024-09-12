@@ -6,7 +6,7 @@ metadata:
   show login: False
   description: |
     DESCRIPTION 
-  revision_date: 2024-09-09
+  revision_date: 2024-09-12
 ---
 modules:
   - .post
@@ -72,6 +72,7 @@ code: |
 
   token = url_args.get("token")
 
+  intro_screen
   validate_status, validate_content = validate_session({"token": token, "board_id": board_id, "survey_id": survey_id})
   if validate_status != 200:
      invalid_token_screen
@@ -94,7 +95,6 @@ code: |
   session_tags().add(board_id+"__"+survey_id)
   session_tags().add(board_id+"__"+survey_id+"__"+organisation_id)
 
-  intro_screen
   survey_data = []
   survey_data.append({'name': 'Please disclose any negative impacts relating to biodiversity and ecosystems.', 'value': DMA_E4_1, 'id': 'DMA_E4_1', 'answer_type': 'OPEN_LARGE'})
   survey_data.append({'name': 'Please disclose any positive impacts relating of the undertaking to biodiversity and ecosystems.', 'value': DMA_E4_2, 'id': 'DMA_E4_2', 'answer_type': 'OPEN_LARGE'})

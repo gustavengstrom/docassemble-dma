@@ -6,7 +6,7 @@ metadata:
   show login: False
   description: |
     DESCRIPTION 
-  revision_date: 2024-09-09
+  revision_date: 2024-09-12
 ---
 modules:
   - .post
@@ -45,6 +45,7 @@ code: |
 
   token = url_args.get("token")
 
+  intro_screen
   validate_status, validate_content = validate_session({"token": token, "board_id": board_id, "survey_id": survey_id})
   if validate_status != 200:
      invalid_token_screen
@@ -67,7 +68,6 @@ code: |
   session_tags().add(board_id+"__"+survey_id)
   session_tags().add(board_id+"__"+survey_id+"__"+organisation_id)
 
-  intro_screen
   survey_data = []
   survey_data.append({'name': 'Has the undertaking identified negative impacts on biodiversity and ecosystems?', 'value': DMA_Environmental_4_Biodiversity_and_ecosystems_1 if DMA_Environmental_4_Biodiversity_and_ecosystems_1!='None' else '', 'id': 'DMA_Environmental_4_Biodiversity_and_ecosystems_1', 'answer_type': 'Yes/No/Partly', 'dynamic_header':'Please elaborate on the questions below for identified negative impacts on biodiversity and ecosystems.', 'dynamic_condition_criteria': 'Yes/Partly'})
   if DMA_Environmental_4_Biodiversity_and_ecosystems_1 in ['Yes', 'Partly']:
