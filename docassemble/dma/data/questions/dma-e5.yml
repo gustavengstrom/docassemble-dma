@@ -1,12 +1,12 @@
 metadata:
   title: |
-    dma-e5
+    DMA-E5
   short title: |
-    In this step, the undertaking identifies the actual and potential impacts, risks and opportunities (IROs) relating to circular economy across its own operations and in its upstream and downstream value chain. The outcome will be a ‘long’ list of impacts, risks and opportunities for further assessment and analysis in subsequent steps. If unsure, leave blank.
+    Double Materiality Assessment (DMA)&#58; Identification of the actual and potential impacts, risks and opporunities related to circular economy (E5).
   show login: False
   description: |
-    DESCRIPTION 
-  revision_date: 2024-09-12
+    In this step, the undertaking identifies the actual and potential impacts, risks and opportunities (IROs) relating to circular economy across its own operations and in its upstream and downstream value chain. The outcome will be a ‘long’ list of impacts, risks and opportunities for further assessment and analysis in subsequent steps. If unsure, leave blank. 
+  revision_date: 2024-09-13
 ---
 modules:
   - .post
@@ -25,7 +25,7 @@ features:
 ---
 field: intro_screen
 question: |
-  Double Materiality Assessment (DMA): Identification of the actual and potential impacts, risks and opporunities related to circular economy (E5).
+  Double Materiality Assessment (DMA)&#58; Identification of the actual and potential impacts, risks and opporunities related to circular economy (E5).
 subquestion: |
   In this step, the undertaking identifies the actual and potential impacts, risks and opportunities (IROs) relating to circular economy across its own operations and in its upstream and downstream value chain. The outcome will be a ‘long’ list of impacts, risks and opportunities for further assessment and analysis in subsequent steps. If unsure, leave blank.
 

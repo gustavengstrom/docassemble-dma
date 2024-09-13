@@ -1,12 +1,12 @@
 metadata:
   title: |
-    dma-reporting
+    DMA-Reporting
   short title: |
-    This step consolidates the results of the previous steps and obtains the list of material IROs, which forms the basis for the preparation of the sustainability statement. Analysis performed at material topic/subtopic or sub-subtopic level is to be converted to IROs if this has not been done yet. If unsure, leave blank.
+    Double Materiality Assessment (DMA)&#58; Reporting
   show login: False
   description: |
-    DESCRIPTION 
-  revision_date: 2024-09-12
+    This step consolidates the results of the previous steps and obtains the list of material IROs, which forms the basis for the preparation of the sustainability statement. Analysis performed at material topic/subtopic or sub-subtopic level is to be converted to IROs if this has not been done yet. If unsure, leave blank. 
+  revision_date: 2024-09-13
 ---
 modules:
   - .post
@@ -25,7 +25,7 @@ features:
 ---
 field: intro_screen
 question: |
-  Double Materiality Assessment (DMA): Reporting
+  Double Materiality Assessment (DMA)&#58; Reporting
 subquestion: |
   This step consolidates the results of the previous steps and obtains the list of material IROs, which forms the basis for the preparation of the sustainability statement. Analysis performed at material topic/subtopic or sub-subtopic level is to be converted to IROs if this has not been done yet. If unsure, leave blank.
 

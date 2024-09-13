@@ -1,11 +1,11 @@
 metadata:
   title: |
-    dma-general
+    DMA-General
   short title: |
-    In this step, the undertaking develops an overview of its activities and business relationships, the context in which these take place and an understanding of its key affected stakeholders. This overview provides key inputs to identify the undertaking’s IROs. If unsure, leave blank.
+    SHORTDMA-General
   show login: False
   description: |
-    DESCRIPTION 
+    In this step, the undertaking develops an overview of its activities and business relationships, the context in which these take place and an understanding of its key affected stakeholders. This overview provides key inputs to identify the undertaking’s IROs. If unsure, leave blank. 
   revision_date: 2024-09-12
 ---
 modules:
